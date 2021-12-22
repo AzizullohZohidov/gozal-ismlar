@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gozal_ismlar/core/constants/my_colors.dart';
+import 'package:gozal_ismlar/presentation/screens/favorites_screen/favorites_screen.dart';
 import 'package:gozal_ismlar/presentation/screens/info_screen/info_screen.dart';
-import 'package:gozal_ismlar/presentation/screens/landing_screen/widgets/colored_icon.dart';
+import 'package:gozal_ismlar/presentation/screens/common_widgets/colored_icon.dart';
 import 'package:gozal_ismlar/presentation/screens/names_screen/names_screen.dart';
 
 class LandingScreen extends StatefulWidget {
@@ -16,7 +17,7 @@ class _LandingScreenState extends State<LandingScreen> {
 
   final screens = [
     NamesScreen(),
-    NamesScreen(),
+    FavoritesScreen(),
     InfoScreen(),
   ];
 
@@ -37,6 +38,8 @@ class _LandingScreenState extends State<LandingScreen> {
       backgroundColor: MyColors.bottomNavBarColor,
       selectedItemColor: Colors.black,
       unselectedItemColor: Colors.grey,
+      selectedFontSize: 13,
+      unselectedFontSize: 13,
       items: [
         BottomNavigationBarItem(
           icon: const Icon(Icons.document_scanner_rounded),
