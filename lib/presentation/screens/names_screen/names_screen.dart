@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:gozal_ismlar/core/constants/my_colors.dart';
 import 'package:gozal_ismlar/presentation/screens/names_screen/widgets/name_list_tile.dart';
+import 'package:gozal_ismlar/presentation/screens/names_screen/widgets/search_bar.dart';
 
 class NamesScreen extends StatefulWidget {
   NamesScreen({Key? key}) : super(key: key);
   bool maleNamesFilter = true;
+  TextEditingController _searchBarController = TextEditingController();
 
   @override
   State<NamesScreen> createState() => _NamesScreenState();
@@ -20,6 +22,10 @@ class _NamesScreenState extends State<NamesScreen> {
             height: 100,
           ),
           _buildMaleFemaleNamesTabs(),
+          SearchBar(
+            searchBarController: widget._searchBarController,
+            padding: 16.0,
+          ),
           NameListTile(
             title: 'Абд',
             subTitle: 'Abd',
@@ -47,9 +53,9 @@ class _NamesScreenState extends State<NamesScreen> {
           borderRadius: BorderRadius.circular(15),
           border: Border.all(color: MyColors.grey),
         ),
-        child: Expanded(
+        child: Padding(
+          padding: const EdgeInsets.all(2.0),
           child: Row(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Expanded(child: _buildMaleNamesTab()),
               Expanded(child: _buildFemaleNamesTab()),
@@ -63,6 +69,7 @@ class _NamesScreenState extends State<NamesScreen> {
   Widget _buildMaleNamesTab() {
     return GestureDetector(
       onTap: () {
+        widget._searchBarController.clear();
         setState(() {
           widget.maleNamesFilter = true;
         });
@@ -97,6 +104,7 @@ class _NamesScreenState extends State<NamesScreen> {
   Widget _buildFemaleNamesTab() {
     return GestureDetector(
       onTap: () {
+        widget._searchBarController.clear();
         setState(() {
           widget.maleNamesFilter = false;
         });

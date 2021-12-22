@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gozal_ismlar/core/constants/my_colors.dart';
+import 'package:gozal_ismlar/presentation/screens/common_widgets/colored_icon.dart';
 
 class NameListTile extends StatefulWidget {
   NameListTile({
@@ -26,6 +27,7 @@ class _NameListTileState extends State<NameListTile> {
     return Column(
       children: [
         ListTile(
+          onTap: () {},
           title: Text(
             widget.title,
             style: TextStyle(
@@ -42,10 +44,11 @@ class _NameListTileState extends State<NameListTile> {
               });
             },
             icon: widget.isFavorite
-                ? Icon(
-                    Icons.star_rounded,
-                    color: Colors.deepOrange,
-                    size: widget.iconSize,
+                ? ColoredIcon(
+                    icon: Icons.star_rounded,
+                    bottomLeftColor: MyColors.deepOrange,
+                    topRightColor: MyColors.yellow,
+                    iconSize: widget.iconSize,
                   )
                 : Icon(
                     Icons.star_border_rounded,
