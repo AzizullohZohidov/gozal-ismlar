@@ -4,7 +4,7 @@ class NameModel {
   final String nameInLatin;
   final String meaning;
   final String peopleWithThisName;
-  final bool isFavorite;
+  bool isFavorite;
 
   NameModel({
     required this.id,
