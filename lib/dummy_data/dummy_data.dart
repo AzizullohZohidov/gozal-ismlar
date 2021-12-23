@@ -51,6 +51,7 @@ class DummyData {
           nameInLatin: namesInLatin[i],
           meaning: meanings[i],
           peopleWithThisName: peopleWithThisName[i],
+          isMaleName: true,
         ),
       );
     }
