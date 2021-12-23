@@ -18,7 +18,7 @@ class _NamesScreenState extends State<NamesScreen> {
     return Scaffold(
       body: Column(
         children: [
-          SizedBox(
+          const SizedBox(
             height: 100,
           ),
           _buildMaleFemaleNamesTabs(),
