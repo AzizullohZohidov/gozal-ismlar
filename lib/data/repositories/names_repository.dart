@@ -12,13 +12,16 @@ class NamesRepository {
     _allNames = _dummyData.names;
   }
 
-  List<NameModel> getAllNames() {
-    return _allNames;
+  List<NameModel> getAllNames(bool isMaleName) {
+    return _allNames
+        .where((nameModel) => nameModel.isMaleName == isMaleName)
+        .toList();
   }
 
-  List<NameModel> getNamesStartingWith(String pattern) {
+  List<NameModel> getNamesStartingWith(String pattern, bool isMaleName) {
     return _allNames
-        .where((nameModel) => nameModel.name.startsWith(pattern))
+        .where((nameModel) => (nameModel.name.startsWith(pattern) &&
+            nameModel.isMaleName == isMaleName))
         .toList();
   }
 

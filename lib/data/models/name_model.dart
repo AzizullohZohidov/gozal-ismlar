@@ -5,6 +5,7 @@ class NameModel {
   final String meaning;
   final String peopleWithThisName;
   bool isFavorite;
+  final bool isMaleName;
 
   NameModel({
     required this.id,
@@ -12,6 +13,7 @@ class NameModel {
     required this.nameInLatin,
     required this.meaning,
     required this.peopleWithThisName,
+    required this.isMaleName,
     this.isFavorite = false,
   });
 }
