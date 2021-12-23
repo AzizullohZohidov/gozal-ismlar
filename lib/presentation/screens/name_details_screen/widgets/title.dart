@@ -5,7 +5,7 @@ class Title extends StatelessWidget {
   const Title({
     Key? key,
     required this.text,
-    this.fontSize = 24,
+    this.fontSize = 36,
     this.isBold = true,
   }) : super(key: key);
 
