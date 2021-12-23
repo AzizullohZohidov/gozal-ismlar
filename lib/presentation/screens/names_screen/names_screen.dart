@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gozal_ismlar/business_logic/bloc/names_bloc/names_bloc.dart';
 import 'package:gozal_ismlar/core/constants/my_colors.dart';
 import 'package:gozal_ismlar/presentation/screens/names_screen/widgets/name_list_tile.dart';
+import 'package:gozal_ismlar/presentation/screens/names_screen/widgets/names_list.dart';
 import 'package:gozal_ismlar/presentation/screens/names_screen/widgets/search_bar.dart';
 
 class NamesScreen extends StatefulWidget {
   NamesScreen({Key? key}) : super(key: key);
   bool maleNamesFilter = true;
+  late NamesBloc namesBloc;
   TextEditingController _searchBarController = TextEditingController();
 
   @override
@@ -14,26 +18,46 @@ class NamesScreen extends StatefulWidget {
 
 class _NamesScreenState extends State<NamesScreen> {
   @override
+  void initState() {
+    widget.namesBloc = BlocProvider.of<NamesBloc>(context);
+    widget.namesBloc.add(NamesInitialized(isMaleName: widget.maleNamesFilter));
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
         children: [
-          const SizedBox(
-            height: 100,
-          ),
           _buildMaleFemaleNamesTabs(),
           SearchBar(
             searchBarController: widget._searchBarController,
             padding: 16.0,
+            isMaleName: widget.maleNamesFilter,
+            requestNameFilter: requestNameFilter,
           ),
-          NameListTile(
-            title: 'Абд',
-            subTitle: 'Abd',
-            isFavorite: true,
-          ),
-          NameListTile(
-            title: 'Аббос',
-            subTitle: 'Abbos',
+          BlocBuilder<NamesBloc, NamesState>(
+            builder: (context, state) {
+              if (state is NamesInitializing) {
+                return Expanded(
+                  child: NamesList(
+                    names: state.allNames,
+                  ),
+                );
+              } else if (state is NamesFiltering) {
+                return Expanded(
+                  child: NamesList(
+                    names: state.filteredNames,
+                  ),
+                );
+              } else {
+                return Expanded(
+                  child: NamesList(
+                    names: const [],
+                  ),
+                );
+              }
+            },
           ),
         ],
       ),
@@ -70,6 +94,7 @@ class _NamesScreenState extends State<NamesScreen> {
     return GestureDetector(
       onTap: () {
         widget._searchBarController.clear();
+        requestNameFilter(true, '');
         setState(() {
           widget.maleNamesFilter = true;
         });
@@ -105,6 +130,7 @@ class _NamesScreenState extends State<NamesScreen> {
     return GestureDetector(
       onTap: () {
         widget._searchBarController.clear();
+        requestNameFilter(false, '');
         setState(() {
           widget.maleNamesFilter = false;
         });
@@ -134,5 +160,10 @@ class _NamesScreenState extends State<NamesScreen> {
         ),
       ),
     );
+  }
+
+  void requestNameFilter(bool isMaleName, String pattern) {
+    widget.namesBloc
+        .add(NamesFiltered(isMaleName: isMaleName, pattern: pattern));
   }
 }

@@ -16,7 +16,7 @@ class InfoScreen extends StatelessWidget {
           children: [
             Padding(
               padding: EdgeInsets.symmetric(
-                vertical: MediaQuery.of(context).size.height * 0.05,
+                vertical: MediaQuery.of(context).size.height * 0.03,
               ),
               child: Text(
                 'Инфо',

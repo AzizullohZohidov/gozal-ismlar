@@ -6,9 +6,13 @@ class SearchBar extends StatelessWidget {
     Key? key,
     required this.searchBarController,
     required this.padding,
+    required this.isMaleName,
+    required this.requestNameFilter,
   }) : super(key: key);
   final TextEditingController searchBarController;
   final double padding;
+  final bool isMaleName;
+  final Function requestNameFilter;
 
   @override
   Widget build(BuildContext context) {
@@ -17,6 +21,7 @@ class SearchBar extends StatelessWidget {
       child: TextField(
         controller: searchBarController,
         cursorColor: MyColors.green,
+        textCapitalization: TextCapitalization.sentences,
         style: TextStyle(
           color: MyColors.darkGreen,
           fontWeight: FontWeight.bold,
@@ -36,6 +41,9 @@ class SearchBar extends StatelessWidget {
             borderRadius: BorderRadius.circular(15),
           ),
         ),
+        onChanged: (String text) {
+          requestNameFilter(isMaleName, text);
+        },
       ),
     );
   }

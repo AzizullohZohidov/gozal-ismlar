@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gozal_ismlar/business_logic/bloc/names_bloc/names_bloc.dart';
+import 'package:gozal_ismlar/business_logic/bloc/names_lsit_tile_bloc/name_list_tile_bloc.dart';
 import 'package:gozal_ismlar/data/repositories/names_repository.dart';
 import 'package:gozal_ismlar/presentation/screens/landing_screen/landing_screen.dart';
 import 'package:gozal_ismlar/presentation/screens/name_details_screen/name_details_screen.dart';
@@ -9,20 +12,31 @@ void main() {
 
 class MyApp extends StatelessWidget {
   MyApp({Key? key}) : super(key: key);
-  var names = NamesRepository();
+  var namesRepository = NamesRepository();
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Go\'zal Ismlar',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      // home: LandingScreen(),
-      home: NameDetailsScreen(
-        filteredNames: names.getAllNames(true),
-        currentNameId: 1,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<NamesBloc>(
+          create: (context) => NamesBloc(namesRepository: namesRepository),
+        ),
+        BlocProvider<NameListTileBloc>(
+          create: (context) =>
+              NameListTileBloc(namesRepository: namesRepository),
+        ),
+      ],
+      child: MaterialApp(
+        title: 'Go\'zal Ismlar',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: LandingScreen(),
+        /*home: NameDetailsScreen(
+            filteredNames: namesRepository.getAllNames(true),
+            currentNameId: 1,
+          ),*/
       ),
     );
   }

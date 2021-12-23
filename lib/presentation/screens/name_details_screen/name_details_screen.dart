@@ -29,35 +29,55 @@ class _NameDetailsScreenState extends State<NameDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _buildAppBar(),
-      body: Column(
-        children: [
-          Expanded(
-            child: PageView.builder(
-              controller: widget._pageController,
-              itemCount: widget.filteredNames.length,
-              scrollDirection: Axis.vertical,
-              itemBuilder: (context, index) {
-                return _buildPageBody(context, widget.filteredNames[index]);
-              },
+      body: SafeArea(
+        child: Column(
+          children: [
+            Expanded(
+              child: PageView.builder(
+                controller: widget._pageController,
+                itemCount: widget.filteredNames.length,
+                scrollDirection: Axis.vertical,
+                itemBuilder: (context, index) {
+                  return _buildPageBody(context, widget.filteredNames[index]);
+                },
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
 
-  AppBar _buildAppBar() {
-    return AppBar(
-      backgroundColor: MyColors.appBarColor,
-      elevation: 0,
-      leading: IconButton(
-        onPressed: () {},
-        icon: Icon(
-          Icons.arrow_back,
-          color: MyColors.black,
+  Widget _buildAppBar(NameModel nameModel) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        IconButton(
+          onPressed: () {},
+          icon: SizedBox(
+            width: MediaQuery.of(context).size.width * 0.05,
+            child: Image.asset('assets/icons/back_arrow.png'),
+          ),
         ),
-      ),
+        Row(
+          children: [
+            _buildAppBarAction(
+                'assets/icons/share.png',
+                const EdgeInsets.symmetric(
+                  vertical: 10,
+                  horizontal: 11,
+                ),
+                () {}),
+            _buildAppBarAction(
+              nameModel.isFavorite
+                  ? 'assets/icons/tanlangan.png'
+                  : 'assets/icons/tanlanmagan.png',
+              const EdgeInsets.all(10),
+              () {},
+            ),
+          ],
+        ),
+      ],
     );
   }
 
@@ -66,7 +86,12 @@ class _NameDetailsScreenState extends State<NameDetailsScreen> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _buildContent(context, nameModel),
+        Column(
+          children: [
+            _buildAppBar(nameModel),
+            _buildContent(context, nameModel),
+          ],
+        ),
         _buildNextNameButton(),
       ],
     );
@@ -153,24 +178,34 @@ class _NameDetailsScreenState extends State<NameDetailsScreen> {
               ),
             ),
           ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const SizedBox(height: 30),
-              Icon(
-                Icons.arrow_upward_rounded,
-                color: MyColors.green,
-              ),
-              const SizedBox(height: 10),
-              Text(
-                "Keyingin ism",
-                style: TextStyle(
-                  color: MyColors.green,
-                ),
-              ),
-            ],
+          Positioned(
+            bottom: MediaQuery.of(context).size.height * 0.065,
+            child: SizedBox(
+              width: MediaQuery.of(context).size.width * 0.225,
+              child: Image.asset('assets/icons/keyingi_ism.png'),
+            ),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildAppBarAction(
+      String pathToIcon, EdgeInsets padding, Function callback) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        margin: const EdgeInsets.only(right: 8.0),
+        padding: padding,
+        height: MediaQuery.of(context).size.width * 0.1,
+        width: MediaQuery.of(context).size.width * 0.1,
+        decoration: BoxDecoration(
+          color: MyColors.lightGrey,
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Image.asset(
+          pathToIcon,
+        ),
       ),
     );
   }
