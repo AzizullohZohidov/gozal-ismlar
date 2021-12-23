@@ -19,7 +19,7 @@ class NameListTile extends StatefulWidget {
   bool isFavorite;
   double fontSize;
   double iconSize;
-  late NameListTileBloc nameListTileBloc;
+  var nameListTileBloc;
 
   @override
   State<NameListTile> createState() => _NameListTileState();
@@ -34,6 +34,7 @@ class _NameListTileState extends State<NameListTile> {
 
   @override
   Widget build(BuildContext context) {
+    widget.nameListTileBloc ??= BlocProvider.of<NameListTileBloc>(context);
     return BlocListener<NameListTileBloc, NameListTileState>(
       listener: (context, state) {
         if (state is NameListTileMarkingFavorite && state.id == widget.id) {

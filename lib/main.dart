@@ -6,6 +6,8 @@ import 'package:gozal_ismlar/data/repositories/names_repository.dart';
 import 'package:gozal_ismlar/presentation/screens/landing_screen/landing_screen.dart';
 import 'package:gozal_ismlar/presentation/screens/name_details_screen/name_details_screen.dart';
 
+import 'business_logic/bloc/favorites_bloc/favorites_bloc.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -25,10 +27,14 @@ class MyApp extends StatelessWidget {
           create: (context) =>
               NameListTileBloc(namesRepository: namesRepository),
         ),
+        BlocProvider<FavoritesBloc>(
+          create: (context) => FavoritesBloc(namesRepository: namesRepository),
+        ),
       ],
       child: MaterialApp(
         title: 'Go\'zal Ismlar',
         debugShowCheckedModeBanner: false,
+        scrollBehavior: const ScrollBehavior().copyWith(overscroll: false),
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),

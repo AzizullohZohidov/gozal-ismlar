@@ -1,10 +1,48 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gozal_ismlar/business_logic/bloc/favorites_bloc/favorites_bloc.dart';
+import 'package:gozal_ismlar/presentation/screens/names_screen/widgets/names_list.dart';
 
-class FavoritesScreen extends StatelessWidget {
-  const FavoritesScreen({Key? key}) : super(key: key);
+class FavoritesScreen extends StatefulWidget {
+  FavoritesScreen({Key? key}) : super(key: key);
+  late FavoritesBloc favoritesBloc;
+
+  @override
+  State<FavoritesScreen> createState() => _FavoritesScreenState();
+}
+
+class _FavoritesScreenState extends State<FavoritesScreen> {
+  @override
+  void initState() {
+    widget.favoritesBloc = BlocProvider.of<FavoritesBloc>(context);
+    widget.favoritesBloc.add(FavoritesInitialized());
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      body: Column(
+        children: [
+          BlocBuilder<FavoritesBloc, FavoritesState>(
+            builder: (context, state) {
+              if (state is FavoritesInitializing) {
+                return Expanded(
+                  child: NamesList(
+                    names: state.favoriteNames,
+                  ),
+                );
+              } else {
+                return Expanded(
+                  child: NamesList(
+                    names: const [],
+                  ),
+                );
+              }
+            },
+          ),
+        ],
+      ),
+    );
   }
 }
