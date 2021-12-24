@@ -6,6 +6,7 @@ import 'package:gozal_ismlar/presentation/screens/names_screen/widgets/names_lis
 class FavoritesScreen extends StatefulWidget {
   FavoritesScreen({Key? key}) : super(key: key);
   late FavoritesBloc favoritesBloc;
+  final ScrollController _listController = ScrollController();
 
   @override
   State<FavoritesScreen> createState() => _FavoritesScreenState();

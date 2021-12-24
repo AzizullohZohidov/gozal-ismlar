@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gozal_ismlar/business_logic/bloc/names_bloc/names_bloc.dart';
 import 'package:gozal_ismlar/core/constants/my_colors.dart';
+import 'package:gozal_ismlar/presentation/screens/names_screen/widgets/character_indicator.dart';
 import 'package:gozal_ismlar/presentation/screens/names_screen/widgets/name_list_tile.dart';
 import 'package:gozal_ismlar/presentation/screens/names_screen/widgets/names_list.dart';
 import 'package:gozal_ismlar/presentation/screens/names_screen/widgets/search_bar.dart';
@@ -30,12 +31,13 @@ class _NamesScreenState extends State<NamesScreen> {
       body: Column(
         children: [
           _buildMaleFemaleNamesTabs(),
-          SearchBar(
+          /*SearchBar(
             searchBarController: widget._searchBarController,
             padding: 16.0,
             isMaleName: widget.maleNamesFilter,
             requestNameFilter: requestNameFilter,
-          ),
+          ),*/
+          CharacterIndicator(),
           BlocBuilder<NamesBloc, NamesState>(
             builder: (context, state) {
               if (state is NamesInitializing) {

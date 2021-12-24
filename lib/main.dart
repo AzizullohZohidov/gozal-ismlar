@@ -6,6 +6,7 @@ import 'package:gozal_ismlar/data/repositories/names_repository.dart';
 import 'package:gozal_ismlar/presentation/screens/landing_screen/landing_screen.dart';
 import 'package:gozal_ismlar/presentation/screens/name_details_screen/name_details_screen.dart';
 
+import 'business_logic/bloc/character_indicator_bloc/character_indicator_bloc.dart';
 import 'business_logic/bloc/favorites_bloc/favorites_bloc.dart';
 
 void main() {
@@ -29,6 +30,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider<FavoritesBloc>(
           create: (context) => FavoritesBloc(namesRepository: namesRepository),
+        ),
+        BlocProvider<CharacterIndicatorBloc>(
+          create: (context) => CharacterIndicatorBloc(),
         ),
       ],
       child: MaterialApp(

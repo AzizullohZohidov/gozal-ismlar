@@ -11,8 +11,8 @@ class MyColors {
   static final Color lightGrey = Colors.grey.shade200;
   static final Color grey = Colors.grey.shade400;
 
-  static final Color appBarColor = Color.fromRGBO(250, 250, 250, 1);
-  static final Color bottomNavBarColor = Color.fromRGBO(250, 250, 250, 1);
+  static final Color appBarColor = Color(0XFFFAFAFA);
+  static final Color bottomNavBarColor = Color(0XFFFAFAFA);
   static final Color descriptionTextColor = Color.fromRGBO(135, 135, 139, 1);
 
   static final Color white = Colors.white;
