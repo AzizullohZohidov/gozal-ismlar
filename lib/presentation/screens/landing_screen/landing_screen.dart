@@ -98,11 +98,14 @@ class _LandingScreenState extends State<LandingScreen> {
   }
 
   Widget _buildSizedIcon(String pathToIcon, double size) {
-    return SizedBox(
-      height: size,
-      width: size,
-      child: Image.asset(
-        pathToIcon,
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 7.0),
+      child: SizedBox(
+        height: size,
+        width: size,
+        child: Image.asset(
+          pathToIcon,
+        ),
       ),
     );
   }
