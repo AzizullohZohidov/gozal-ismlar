@@ -13,6 +13,8 @@ class MyColors {
 
   static final Color appBarColor = Color(0XFFFAFAFA);
   static final Color bottomNavBarColor = Color(0XFFFAFAFA);
+  static final Color tabBar = Color(0XFFFAFAFA);
+  static final Color characterIndicatorColor = Color(0XFFFAFAFA);
   static final Color descriptionTextColor = Color.fromRGBO(135, 135, 139, 1);
 
   static final Color white = Colors.white;

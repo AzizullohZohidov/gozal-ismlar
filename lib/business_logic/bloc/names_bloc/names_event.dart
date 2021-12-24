@@ -7,16 +7,10 @@ abstract class NamesEvent extends Equatable {
 }
 
 class NamesInitialized extends NamesEvent {
-  final bool isMaleName;
-
-  NamesInitialized({
-    required this.isMaleName,
-  });
+  NamesInitialized();
 
   @override
-  List<Object?> get props => [
-        isMaleName,
-      ];
+  List<Object?> get props => [];
 }
 
 class NamesFiltered extends NamesEvent {

@@ -18,7 +18,8 @@ class NameListTileBloc extends Bloc<NameListTileEvent, NameListTileState> {
     NameListTileEnteredDetails event,
     Emitter<NameListTileState> emitter,
   ) {
-    emitter(NameListTileEnteringDetails());
+    emitter(NameListTileEnteringDetails(id: event.id));
+    emitter(NameListTileEmptyState());
   }
 
   _onNameListTileMarkedFavorite(

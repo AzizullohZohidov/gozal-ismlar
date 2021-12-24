@@ -9,12 +9,19 @@ class NamesInitial extends NamesState {
 }
 
 class NamesInitializing extends NamesState {
-  final List<NameModel> allNames;
+  final List<NameModel> maleNames;
+  final List<NameModel> femaleNames;
 
-  NamesInitializing({required this.allNames});
+  NamesInitializing({
+    required this.maleNames,
+    required this.femaleNames,
+  });
 
   @override
-  List<Object?> get props => [allNames];
+  List<Object?> get props => [
+        maleNames,
+        femaleNames,
+      ];
 }
 
 class NamesFiltering extends NamesState {

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gozal_ismlar/business_logic/bloc/names_bloc/names_bloc.dart';
 import 'package:gozal_ismlar/business_logic/bloc/names_lsit_tile_bloc/name_list_tile_bloc.dart';
+import 'package:gozal_ismlar/core/constants/my_colors.dart';
 import 'package:gozal_ismlar/data/repositories/names_repository.dart';
 import 'package:gozal_ismlar/presentation/screens/landing_screen/landing_screen.dart';
 import 'package:gozal_ismlar/presentation/screens/name_details_screen/name_details_screen.dart';
@@ -41,6 +42,10 @@ class MyApp extends StatelessWidget {
         scrollBehavior: const ScrollBehavior().copyWith(overscroll: false),
         theme: ThemeData(
           primarySwatch: Colors.blue,
+          appBarTheme: AppBarTheme(
+            backgroundColor: MyColors.white,
+          ),
+          scaffoldBackgroundColor: MyColors.white,
         ),
         home: LandingScreen(),
         /*home: NameDetailsScreen(

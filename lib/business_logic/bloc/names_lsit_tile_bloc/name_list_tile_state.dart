@@ -9,7 +9,14 @@ abstract class NameListTileState extends Equatable {
 
 class NameListTileInitial extends NameListTileState {}
 
-class NameListTileEnteringDetails extends NameListTileState {}
+class NameListTileEnteringDetails extends NameListTileState {
+  final int id;
+
+  const NameListTileEnteringDetails({required this.id});
+
+  @override
+  List<Object> get props => [id];
+}
 
 class NameListTileMarkingFavorite extends NameListTileState {
   final int id;
@@ -28,3 +35,5 @@ class NameListTileUnmarkingFavorite extends NameListTileState {
   @override
   List<Object> get props => [id];
 }
+
+class NameListTileEmptyState extends NameListTileState {}

@@ -21,7 +21,7 @@ class CharacterIndicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height * 0.05,
+      height: MediaQuery.of(context).size.height * 0.055,
       padding: EdgeInsets.symmetric(
         vertical: verticalPadding,
         horizontal: horizontalPadding,
@@ -32,14 +32,14 @@ class CharacterIndicator extends StatelessWidget {
       ),
       width: double.infinity,
       decoration: BoxDecoration(
-        color: MyColors.lightGrey,
+        color: MyColors.characterIndicatorColor,
         borderRadius: BorderRadius.circular(radius),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           _buildLetterText(),
-          _buildSizedIcon('assets/icons/letter_category.png', 22),
+          _buildSizedIcon('assets/icons/letter_category.png', 18),
         ],
       ),
     );

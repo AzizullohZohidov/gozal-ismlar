@@ -30,23 +30,19 @@ class NamesList extends StatelessWidget {
             id: names[index].id,
             title: names[index].name,
             subTitle: names[index].nameInLatin,
+            filteredNames: names,
             isFavorite: names[index].isFavorite,
           );
         });
   }
 
   void observeFirstCharacters() {
-    int index =
-        ((_listController.offset / listItemHeight) % visibleItemsCount).toInt();
+    int index = (_listController.offset / listItemHeight).toInt();
     var newLetter = names[index].name[0];
     if (newLetter != firstLetter) {
-      print(
-        "First letter changed. New name is ${names[index].name}",
-      );
       firstLetter = newLetter;
       characterIndicatorBloc
           .add(CharacterIndicatorLetterChanged(newLetter: firstLetter));
     }
-    //print(names[index].name);
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gozal_ismlar/business_logic/bloc/favorites_bloc/favorites_bloc.dart';
+import 'package:gozal_ismlar/presentation/screens/common_widgets/page_title.dart';
 import 'package:gozal_ismlar/presentation/screens/names_screen/widgets/names_list.dart';
 
 class FavoritesScreen extends StatefulWidget {
@@ -24,7 +25,12 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          PageTitle(
+            text: 'Сараланган',
+            horizontalPadding: MediaQuery.of(context).size.width * 0.04,
+          ),
           BlocBuilder<FavoritesBloc, FavoritesState>(
             builder: (context, state) {
               if (state is FavoritesInitializing) {

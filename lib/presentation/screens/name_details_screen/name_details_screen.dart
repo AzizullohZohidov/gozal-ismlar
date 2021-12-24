@@ -15,7 +15,9 @@ class NameDetailsScreen extends StatefulWidget {
     required this.filteredNames,
     required this.currentNameId,
   }) : super(key: key) {
-    _pageController = PageController(initialPage: currentNameId);
+    int firstPageIndex =
+        filteredNames.indexWhere((nameModel) => nameModel.id == currentNameId);
+    _pageController = PageController(initialPage: firstPageIndex);
   }
   late PageController _pageController;
   List<NameModel> filteredNames;
@@ -53,7 +55,9 @@ class _NameDetailsScreenState extends State<NameDetailsScreen> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         IconButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
           icon: SizedBox(
             width: MediaQuery.of(context).size.width * 0.05,
             child: Image.asset('assets/icons/back_arrow.png'),

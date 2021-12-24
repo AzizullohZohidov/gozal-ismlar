@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gozal_ismlar/core/constants/my_colors.dart';
+import 'package:gozal_ismlar/presentation/screens/common_widgets/page_title.dart';
 
 class InfoScreen extends StatelessWidget {
   const InfoScreen({Key? key}) : super(key: key);
@@ -9,24 +10,12 @@ class InfoScreen extends StatelessWidget {
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.symmetric(
-          horizontal: MediaQuery.of(context).size.width * 0.05,
+          horizontal: MediaQuery.of(context).size.width * 0.04,
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
-              padding: EdgeInsets.symmetric(
-                vertical: MediaQuery.of(context).size.height * 0.03,
-              ),
-              child: Text(
-                'Инфо',
-                style: TextStyle(
-                  color: MyColors.black,
-                  fontSize: 36,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
+            PageTitle(text: 'Инфо'),
             Text(
               'Ushbu mobil ilova ustoz Ziyovuddin Rahimning "Go\'zal ismlar ma\'nosi" kitobi asosida tayyorlab chiqildi!\n\n' +
                   'Boshqa ism ilovalaridan farqi - barcha ismlar chiroyli va ma\'noli musulmonlarga mos ismlardan tashkil topgan.\n\n' +

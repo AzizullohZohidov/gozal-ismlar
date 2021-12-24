@@ -18,8 +18,12 @@ class NamesBloc extends Bloc<NamesEvent, NamesState> {
     NamesInitialized event,
     Emitter<NamesState> emit,
   ) {
-    List<NameModel> allNames = namesRepository.getAllNames(event.isMaleName);
-    emit(NamesInitializing(allNames: allNames));
+    List<NameModel> maleNames = namesRepository.getAllNames(true);
+    List<NameModel> femaleNames = namesRepository.getAllNames(false);
+    emit(NamesInitializing(
+      maleNames: maleNames,
+      femaleNames: femaleNames,
+    ));
   }
 
   _onNamesFiltered(
