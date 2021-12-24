@@ -2,6 +2,8 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gozal_ismlar/business_logic/bloc/name_details_bloc/name_details_bloc.dart';
 import 'package:gozal_ismlar/core/constants/my_colors.dart';
 import 'package:gozal_ismlar/data/models/name_model.dart';
 import 'package:gozal_ismlar/presentation/screens/name_details_screen/widgets/large_circle_clipper.dart';
@@ -72,12 +74,53 @@ class _NameDetailsScreenState extends State<NameDetailsScreen> {
                   horizontal: 11,
                 ),
                 () {}),
-            _buildAppBarAction(
-              nameModel.isFavorite
-                  ? 'assets/icons/tanlangan.png'
-                  : 'assets/icons/tanlanmagan.png',
-              const EdgeInsets.all(10),
-              () {},
+            BlocBuilder<NameDetailsBloc, NameDetailsState>(
+              buildWhen: (previous, current) {
+                if (current is NameDetailsInitial) {
+                  return true;
+                } else if (current is NameDetailsMarkingFavorite) {
+                  return true;
+                } else if (current is NameDetailsUnmarkingFavorite) {
+                  return true;
+                }
+                return false;
+              },
+              builder: (context, state) {
+                if (state is NameDetailsMarkingFavorite &&
+                    state.id == nameModel.id) {
+                  return _buildAppBarAction(
+                    'assets/icons/tanlangan.png',
+                    const EdgeInsets.all(10),
+                    () {
+                      BlocProvider.of<NameDetailsBloc>(context)
+                          .add(NameDetailsUnmarkedFavorite(id: nameModel.id));
+                    },
+                  );
+                } else if (state is NameDetailsUnmarkingFavorite &&
+                    state.id == nameModel.id) {
+                  return _buildAppBarAction(
+                    'assets/icons/tanlanmagan.png',
+                    const EdgeInsets.all(10),
+                    () {
+                      BlocProvider.of<NameDetailsBloc>(context)
+                          .add(NameDetailsMarkedFavorite(id: nameModel.id));
+                    },
+                  );
+                }
+                return _buildAppBarAction(
+                  nameModel.isFavorite
+                      ? 'assets/icons/tanlangan.png'
+                      : 'assets/icons/tanlanmagan.png',
+                  const EdgeInsets.all(10),
+                  () {
+                    nameModel.isFavorite
+                        ? BlocProvider.of<NameDetailsBloc>(context)
+                            .add(NameDetailsUnmarkedFavorite(id: nameModel.id))
+                        : BlocProvider.of<NameDetailsBloc>(context)
+                            .add(NameDetailsMarkedFavorite(id: nameModel.id));
+                  },
+                );
+              },
             ),
           ],
         ),
@@ -196,19 +239,24 @@ class _NameDetailsScreenState extends State<NameDetailsScreen> {
 
   Widget _buildAppBarAction(
       String pathToIcon, EdgeInsets padding, Function callback) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Container(
-        margin: const EdgeInsets.only(right: 8.0),
-        padding: padding,
-        height: MediaQuery.of(context).size.width * 0.1,
-        width: MediaQuery.of(context).size.width * 0.1,
-        decoration: BoxDecoration(
-          color: MyColors.lightGrey,
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: Image.asset(
-          pathToIcon,
+    return GestureDetector(
+      onTap: () {
+        callback();
+      },
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Container(
+          margin: const EdgeInsets.only(right: 8.0),
+          padding: padding,
+          height: MediaQuery.of(context).size.width * 0.1,
+          width: MediaQuery.of(context).size.width * 0.1,
+          decoration: BoxDecoration(
+            color: MyColors.lightGrey,
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Image.asset(
+            pathToIcon,
+          ),
         ),
       ),
     );

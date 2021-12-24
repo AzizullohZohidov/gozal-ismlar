@@ -7,7 +7,6 @@ import 'package:gozal_ismlar/presentation/screens/names_screen/widgets/name_list
 class NamesList extends StatelessWidget {
   final ScrollController _listController = ScrollController();
   //Make sure to set corrent values
-  int visibleItemsCount = 6;
   double listItemHeight = 80;
   String firstLetter = 'А';
   late CharacterIndicatorBloc characterIndicatorBloc;

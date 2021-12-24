@@ -9,6 +9,7 @@ import 'package:gozal_ismlar/presentation/screens/name_details_screen/name_detai
 
 import 'business_logic/bloc/character_indicator_bloc/character_indicator_bloc.dart';
 import 'business_logic/bloc/favorites_bloc/favorites_bloc.dart';
+import 'business_logic/bloc/name_details_bloc/name_details_bloc.dart';
 
 void main() {
   runApp(MyApp());
@@ -35,6 +36,10 @@ class MyApp extends StatelessWidget {
         BlocProvider<CharacterIndicatorBloc>(
           create: (context) => CharacterIndicatorBloc(),
         ),
+        BlocProvider<NameDetailsBloc>(
+          create: (context) =>
+              NameDetailsBloc(namesRepository: namesRepository),
+        ),
       ],
       child: MaterialApp(
         title: 'Go\'zal Ismlar',
@@ -42,16 +47,9 @@ class MyApp extends StatelessWidget {
         scrollBehavior: const ScrollBehavior().copyWith(overscroll: false),
         theme: ThemeData(
           primarySwatch: Colors.blue,
-          appBarTheme: AppBarTheme(
-            backgroundColor: MyColors.white,
-          ),
           scaffoldBackgroundColor: MyColors.white,
         ),
         home: LandingScreen(),
-        /*home: NameDetailsScreen(
-            filteredNames: namesRepository.getAllNames(true),
-            currentNameId: 1,
-          ),*/
       ),
     );
   }

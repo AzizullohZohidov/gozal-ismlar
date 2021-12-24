@@ -11,7 +11,7 @@ class MyColors {
   static final Color lightGrey = Colors.grey.shade200;
   static final Color grey = Colors.grey.shade400;
 
-  static final Color appBarColor = Color(0XFFFAFAFA);
+  static final Color appBarColor = Colors.white;
   static final Color bottomNavBarColor = Color(0XFFFAFAFA);
   static final Color tabBar = Color(0XFFFAFAFA);
   static final Color characterIndicatorColor = Color(0XFFFAFAFA);
