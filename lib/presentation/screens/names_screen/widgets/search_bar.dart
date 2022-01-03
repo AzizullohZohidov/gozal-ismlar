@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gozal_ismlar/core/constants/my_colors.dart';
+import '../../../../core/constants/my_colors.dart';
 
 class SearchBar extends StatelessWidget {
   const SearchBar({

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gozal_ismlar/business_logic/bloc/favorites_bloc/favorites_bloc.dart';
-import 'package:gozal_ismlar/presentation/screens/common_widgets/page_title.dart';
-import 'package:gozal_ismlar/presentation/screens/names_screen/widgets/names_list.dart';
+import '../../../business_logic/bloc/favorites_bloc/favorites_bloc.dart';
+import '../common_widgets/page_title.dart';
+import '../names_screen/widgets/names_list.dart';
 
 class FavoritesScreen extends StatefulWidget {
   FavoritesScreen({Key? key}) : super(key: key);

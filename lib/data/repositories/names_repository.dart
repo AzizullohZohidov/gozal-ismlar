@@ -1,5 +1,5 @@
-import 'package:gozal_ismlar/data/models/name_model.dart';
-import 'package:gozal_ismlar/dummy_data/dummy_data.dart';
+import '../models/name_model.dart';
+import '../../dummy_data/dummy_data.dart';
 
 class NamesRepository {
   late List<int> _favoiteNameIds;

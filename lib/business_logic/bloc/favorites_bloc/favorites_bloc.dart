@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:gozal_ismlar/data/models/name_model.dart';
-import 'package:gozal_ismlar/data/repositories/names_repository.dart';
+import '../../../data/models/name_model.dart';
+import '../../../data/repositories/names_repository.dart';
 
 part 'favorites_event.dart';
 part 'favorites_state.dart';

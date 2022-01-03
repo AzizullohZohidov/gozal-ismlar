@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:gozal_ismlar/core/constants/my_colors.dart';
-import 'package:gozal_ismlar/presentation/screens/favorites_screen/favorites_screen.dart';
-import 'package:gozal_ismlar/presentation/screens/info_screen/info_screen.dart';
-import 'package:gozal_ismlar/presentation/screens/names_screen/names_screen.dart';
+import '../../../core/constants/my_colors.dart';
+import '../favorites_screen/favorites_screen.dart';
+import '../info_screen/info_screen.dart';
+import '../names_screen/names_screen.dart';
 
 class LandingScreen extends StatefulWidget {
   LandingScreen({Key? key}) : super(key: key);

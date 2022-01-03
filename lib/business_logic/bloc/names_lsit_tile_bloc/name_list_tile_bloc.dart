@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:gozal_ismlar/data/repositories/names_repository.dart';
+import '../../../data/repositories/names_repository.dart';
 
 part 'name_list_tile_event.dart';
 part 'name_list_tile_state.dart';

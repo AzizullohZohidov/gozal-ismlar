@@ -3,11 +3,11 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gozal_ismlar/business_logic/bloc/name_details_bloc/name_details_bloc.dart';
-import 'package:gozal_ismlar/core/constants/my_colors.dart';
-import 'package:gozal_ismlar/data/models/name_model.dart';
-import 'package:gozal_ismlar/presentation/screens/name_details_screen/widgets/large_circle_clipper.dart';
-import 'package:gozal_ismlar/presentation/screens/name_details_screen/widgets/small_circle_clipper.dart';
+import '../../../business_logic/bloc/name_details_bloc/name_details_bloc.dart';
+import '../../../core/constants/my_colors.dart';
+import '../../../data/models/name_model.dart';
+import 'widgets/large_circle_clipper.dart';
+import 'widgets/small_circle_clipper.dart';
 import 'package:gozal_ismlar/presentation/screens/name_details_screen/widgets/title.dart'
     as my_title;
 

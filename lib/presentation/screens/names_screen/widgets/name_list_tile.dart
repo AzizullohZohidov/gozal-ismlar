@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gozal_ismlar/business_logic/bloc/names_lsit_tile_bloc/name_list_tile_bloc.dart';
-import 'package:gozal_ismlar/core/constants/my_colors.dart';
-import 'package:gozal_ismlar/data/models/name_model.dart';
-import 'package:gozal_ismlar/presentation/screens/name_details_screen/name_details_screen.dart';
+import '../../../../business_logic/bloc/names_lsit_tile_bloc/name_list_tile_bloc.dart';
+import '../../../../core/constants/my_colors.dart';
+import '../../../../data/models/name_model.dart';
+import '../../name_details_screen/name_details_screen.dart';
 
 class NameListTile extends StatefulWidget {
   NameListTile({

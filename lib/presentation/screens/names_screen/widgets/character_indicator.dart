@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gozal_ismlar/business_logic/bloc/character_indicator_bloc/character_indicator_bloc.dart';
-import 'package:gozal_ismlar/core/constants/my_colors.dart';
+import '../../../../business_logic/bloc/character_indicator_bloc/character_indicator_bloc.dart';
+import '../../../../core/constants/my_colors.dart';
 
 class CharacterIndicator extends StatelessWidget {
   const CharacterIndicator({

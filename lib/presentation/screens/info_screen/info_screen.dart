@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:gozal_ismlar/core/constants/my_colors.dart';
-import 'package:gozal_ismlar/presentation/screens/common_widgets/page_title.dart';
+import '../../../core/constants/my_colors.dart';
+import '../common_widgets/page_title.dart';
 
 class InfoScreen extends StatelessWidget {
   const InfoScreen({Key? key}) : super(key: key);

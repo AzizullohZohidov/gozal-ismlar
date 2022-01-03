@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gozal_ismlar/business_logic/bloc/character_indicator_bloc/character_indicator_bloc.dart';
-import 'package:gozal_ismlar/data/models/name_model.dart';
-import 'package:gozal_ismlar/presentation/screens/names_screen/widgets/name_list_tile.dart';
+import '../../../../business_logic/bloc/character_indicator_bloc/character_indicator_bloc.dart';
+import '../../../../data/models/name_model.dart';
+import 'name_list_tile.dart';
 
 class NamesList extends StatelessWidget {
   final ScrollController _listController = ScrollController();

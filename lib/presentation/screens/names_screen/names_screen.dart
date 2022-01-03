@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gozal_ismlar/business_logic/bloc/character_indicator_bloc/character_indicator_bloc.dart';
-import 'package:gozal_ismlar/business_logic/bloc/names_bloc/names_bloc.dart';
-import 'package:gozal_ismlar/core/constants/my_colors.dart';
-import 'package:gozal_ismlar/data/models/name_model.dart';
-import 'package:gozal_ismlar/presentation/screens/names_screen/widgets/character_indicator.dart';
-import 'package:gozal_ismlar/presentation/screens/names_screen/widgets/names_list.dart';
+import '../../../business_logic/bloc/character_indicator_bloc/character_indicator_bloc.dart';
+import '../../../business_logic/bloc/names_bloc/names_bloc.dart';
+import '../../../core/constants/my_colors.dart';
+import '../../../data/models/name_model.dart';
+import 'widgets/character_indicator.dart';
+import 'widgets/names_list.dart';
 
 class NamesScreen extends StatefulWidget {
   NamesScreen({Key? key}) : super(key: key);
