@@ -20,6 +20,14 @@ class NamesBloc extends Bloc<NamesEvent, NamesState> {
   ) {
     List<NameModel> maleNames = namesRepository.getAllNames(true);
     List<NameModel> femaleNames = namesRepository.getAllNames(false);
+
+    /*for (NameModel name in femaleNames) {
+      print('''
+      ${name.nameCyr},
+      ${name.isMaleName},
+      ''');
+    }*/
+
     emit(NamesInitializing(
       maleNames: maleNames,
       femaleNames: femaleNames,

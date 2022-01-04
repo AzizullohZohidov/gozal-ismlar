@@ -27,8 +27,8 @@ class NamesList extends StatelessWidget {
           return NameListTile(
             key: Key(names[index].id.toString()),
             id: names[index].id,
-            title: names[index].name,
-            subTitle: names[index].nameInLatin,
+            title: names[index].nameCyr,
+            subTitle: names[index].nameLat,
             filteredNames: names,
             isFavorite: names[index].isFavorite,
           );
@@ -37,7 +37,7 @@ class NamesList extends StatelessWidget {
 
   void observeFirstCharacters() {
     int index = (_listController.offset / listItemHeight).toInt();
-    var newLetter = names[index].name[0];
+    var newLetter = names[index].nameCyr[0];
     if (newLetter != firstLetter) {
       firstLetter = newLetter;
       characterIndicatorBloc

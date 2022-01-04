@@ -153,11 +153,11 @@ class _NameDetailsScreenState extends State<NameDetailsScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          my_title.Title(text: nameModel.name),
+          my_title.Title(text: nameModel.nameCyr),
           Padding(
             padding: const EdgeInsets.only(bottom: 20.0),
             child: Text(
-              nameModel.nameInLatin,
+              nameModel.nameLat,
               style: TextStyle(
                 fontSize: 16,
                 height: 2,

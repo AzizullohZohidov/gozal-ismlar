@@ -47,11 +47,12 @@ class DummyData {
       names.add(
         NameModel(
           id: i,
-          name: namesInKirill[i],
-          nameInLatin: namesInLatin[i],
+          nameCyr: namesInKirill[i],
+          nameLat: namesInLatin[i],
           meaning: meanings[i],
           peopleWithThisName: peopleWithThisName[i],
           isMaleName: true,
+          comingLang: '',
         ),
       );
     }
