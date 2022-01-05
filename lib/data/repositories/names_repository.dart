@@ -4,7 +4,6 @@ import '../models/name_model.dart';
 import '../../dummy_data/dummy_data.dart';
 
 class NamesRepository {
-  late List<int> _favoiteNameIds;
   late List<NameModel> allNames;
   late DummyData _dummyData;
   bool isInitialized = false;
@@ -12,16 +11,7 @@ class NamesRepository {
   //Here goes initialization including fetching all names list and favorites list
   NamesRepository({required this.allNames}) {
     _dummyData = DummyData();
-    _favoiteNameIds = [];
     //allNames = _dummyData.names;
-  }
-
-  //Not used
-  Future<void> init() async {
-    if (!isInitialized) {
-      allNames = await NamesDatabase.instance.readAllNames();
-      isInitialized = true;
-    }
   }
 
   List<NameModel> getAllNames(bool isMaleName) {
@@ -38,18 +28,24 @@ class NamesRepository {
   }
 
   List<NameModel> getFavoriteNames() {
-    return allNames
-        .where((nameModel) => _favoiteNameIds.contains(nameModel.id))
-        .toList();
+    return allNames.where((nameModel) => nameModel.isFavorite).toList();
   }
 
-  void markAsFavorite(int id) {
+  void markAsFavorite(int id) async {
+    NameModel name;
     allNames.firstWhere((nameModel) => nameModel.id == id).isFavorite = true;
-    _favoiteNameIds.add(id);
+    name = allNames.firstWhere((nameModel) => nameModel.id == id);
+    print('Marking as favorite name');
+    await NamesDatabase.instance.markFavorite(name);
+    print('Name ${name.nameCyr} has been favorited');
   }
 
-  void unmarkFavorite(int id) {
+  void unmarkFavorite(int id) async {
+    NameModel name;
     allNames.firstWhere((nameModel) => nameModel.id == id).isFavorite = false;
-    _favoiteNameIds.remove(id);
+    name = allNames.firstWhere((nameModel) => nameModel.id == id);
+    print('Unmarking as favorite name');
+    await NamesDatabase.instance.markFavorite(name);
+    print('Name ${name.nameCyr} has been unfavorited');
   }
 }

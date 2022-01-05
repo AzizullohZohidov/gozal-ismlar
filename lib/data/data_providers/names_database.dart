@@ -131,7 +131,7 @@ class NamesDatabase {
     }
   }
 
-  Future<int> updateName(NameModel name) async {
+  Future<int> _updateName(NameModel name) async {
     final db = await instance.database;
 
     return db.update(
@@ -152,6 +152,14 @@ class NamesDatabase {
     final result = await db.query(tableNames);
 
     return result.map((json) => NameModel.fromJson(json)).toList();
+  }
+
+  Future<void> markFavorite(NameModel name) async {
+    await _updateName(name);
+  }
+
+  Future<void> unmarkFavorite(NameModel name) async {
+    await _updateName(name);
   }
 
   Future close() async {
