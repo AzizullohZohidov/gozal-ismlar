@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gozal_ismlar/business_logic/bloc/search_bloc/search_bloc.dart';
 import 'package:gozal_ismlar/data/data_providers/names_database.dart';
 import 'package:gozal_ismlar/data/models/name_model.dart';
 import 'business_logic/bloc/names_bloc/names_bloc.dart';
@@ -30,10 +32,25 @@ class MyApp extends StatelessWidget {
       future: namesFuture,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const MaterialApp(
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
             home: Scaffold(
-              body: Center(
-                child: CircularProgressIndicator(),
+              body: SafeArea(
+                child: Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        width: 200,
+                        child: Image.asset(
+                          'assets/icons/gozal_ismlar_logo.png',
+                        ),
+                      ),
+                      const SizedBox(height: 150),
+                      const CircularProgressIndicator()
+                    ],
+                  ),
+                ),
               ),
             ),
           );
@@ -69,6 +86,9 @@ class MyApp extends StatelessWidget {
               create: (context) =>
                   NameDetailsBloc(namesRepository: namesRepository),
             ),
+            BlocProvider<SearchBloc>(
+              create: (context) => SearchBloc(namesRepository: namesRepository),
+            ),
           ],
           child: MaterialApp(
             title: 'Go\'zal Ismlar',
@@ -77,6 +97,13 @@ class MyApp extends StatelessWidget {
             theme: ThemeData(
               primarySwatch: Colors.blue,
               scaffoldBackgroundColor: MyColors.white,
+              appBarTheme: AppBarTheme(
+                systemOverlayStyle: SystemUiOverlayStyle.light.copyWith(
+                  statusBarColor: Colors.white,
+                  statusBarIconBrightness: Brightness.dark,
+                  statusBarBrightness: Brightness.light,
+                ),
+              ),
             ),
             home: LandingScreen(),
           ),

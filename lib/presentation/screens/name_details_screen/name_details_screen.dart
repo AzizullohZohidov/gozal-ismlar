@@ -10,6 +10,7 @@ import 'widgets/large_circle_clipper.dart';
 import 'widgets/small_circle_clipper.dart';
 import 'package:gozal_ismlar/presentation/screens/name_details_screen/widgets/title.dart'
     as my_title;
+import 'package:share_plus/share_plus.dart';
 
 class NameDetailsScreen extends StatefulWidget {
   NameDetailsScreen({
@@ -68,12 +69,15 @@ class _NameDetailsScreenState extends State<NameDetailsScreen> {
         Row(
           children: [
             _buildAppBarAction(
-                'assets/icons/share.png',
-                const EdgeInsets.symmetric(
-                  vertical: 10,
-                  horizontal: 11,
-                ),
-                () {}),
+              'assets/icons/share.png',
+              const EdgeInsets.symmetric(
+                vertical: 10,
+                horizontal: 11,
+              ),
+              () {
+                Share.share('${nameModel.nameCyr}\n${nameModel.meaning}');
+              },
+            ),
             BlocBuilder<NameDetailsBloc, NameDetailsState>(
               buildWhen: (previous, current) {
                 if (current is NameDetailsInitial) {
@@ -133,11 +137,13 @@ class _NameDetailsScreenState extends State<NameDetailsScreen> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Column(
-          children: [
-            _buildAppBar(nameModel),
-            _buildContent(context, nameModel),
-          ],
+        Expanded(
+          child: Column(
+            children: [
+              _buildAppBar(nameModel),
+              Expanded(child: _buildContent(context, nameModel)),
+            ],
+          ),
         ),
         _buildNextNameButton(),
       ],
@@ -165,22 +171,28 @@ class _NameDetailsScreenState extends State<NameDetailsScreen> {
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(bottom: 8.0),
-            child: Text(
-              nameModel.meaning,
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w500,
-                height: 1.5,
-              ),
-            ),
-          ),
-          Text(
-            nameModel.peopleWithThisName,
-            style: const TextStyle(
-              fontSize: 16,
-              height: 1.5,
+          Expanded(
+            child: ListView(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 8.0),
+                  child: Text(
+                    nameModel.meaning,
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                      height: 1.5,
+                    ),
+                  ),
+                ),
+                Text(
+                  nameModel.peopleWithThisName,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    height: 1.5,
+                  ),
+                ),
+              ],
             ),
           ),
         ],
@@ -205,7 +217,7 @@ class _NameDetailsScreenState extends State<NameDetailsScreen> {
                 clipper: LargeCircleClipper(),
                 child: Container(
                   color: MyColors.green,
-                  height: 200,
+                  height: 140,
                   alignment: Alignment.center,
                 ),
               ),
@@ -219,7 +231,7 @@ class _NameDetailsScreenState extends State<NameDetailsScreen> {
                 clipper: SmallCircleClipper(),
                 child: Container(
                   color: MyColors.green,
-                  height: 200,
+                  height: 140,
                   alignment: Alignment.center,
                 ),
               ),

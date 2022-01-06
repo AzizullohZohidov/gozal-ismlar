@@ -9,19 +9,23 @@ class NameListTile extends StatefulWidget {
   NameListTile({
     Key? key,
     required this.id,
+    required this.isReversed,
     required this.title,
     required this.subTitle,
     required this.filteredNames,
+    required this.listTileHeight,
     this.isFavorite = false,
     this.fontSize = 22,
     this.iconSize = 35,
   }) : super(key: key);
   final int id;
+  final bool isReversed;
   final String title;
   final String subTitle;
   bool isFavorite;
   double fontSize;
   double iconSize;
+  double listTileHeight;
   List<NameModel> filteredNames;
   late NameListTileBloc nameListTileBloc;
 
@@ -66,63 +70,67 @@ class _NameListTileState extends State<NameListTile> {
           );
         }
       },
-      child: Column(
-        children: [
-          ListTile(
-            onTap: () {
-              widget.nameListTileBloc =
-                  BlocProvider.of<NameListTileBloc>(context);
-              widget.nameListTileBloc.add(
-                NameListTileEnteredDetails(id: widget.id),
-              );
-            },
-            title: Text(
-              widget.title,
-              style: TextStyle(
-                color: MyColors.black,
-                fontSize: widget.fontSize,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            subtitle: Text(widget.subTitle),
-            trailing: BlocBuilder<NameListTileBloc, NameListTileState>(
-              buildWhen: (previous, current) {
-                if (current is NameListTileMarkingFavorite &&
-                    current.id == widget.id) {
-                  return true;
-                } else if (current is NameListTileUnmarkingFavorite &&
-                    current.id == widget.id) {
-                  return true;
-                } else if (previous != current) {
-                  return true;
-                }
-                return false;
-              },
-              builder: (context, state) {
-                return IconButton(
-                  onPressed: () {
-                    widget.nameListTileBloc =
-                        BlocProvider.of<NameListTileBloc>(context);
-                    if (widget.isFavorite) {
-                      widget.nameListTileBloc
-                          .add(NameListTileUnmarkedFavorite(id: widget.id));
-                    } else {
-                      widget.nameListTileBloc
-                          .add(NameListTileMarkedFavorite(id: widget.id));
-                    }
-                  },
-                  icon: widget.isFavorite
-                      ? _buildSizedIcon('assets/icons/tanlangan.png', 22)
-                      : _buildSizedIcon('assets/icons/tanlanmagan.png', 22),
+      child: SizedBox(
+        height: widget.listTileHeight,
+        child: Column(
+          children: [
+            ListTile(
+              onTap: () {
+                widget.nameListTileBloc =
+                    BlocProvider.of<NameListTileBloc>(context);
+                widget.nameListTileBloc.add(
+                  NameListTileEnteredDetails(id: widget.id),
                 );
               },
+              title: Text(
+                !widget.isReversed ? widget.title : widget.subTitle,
+                style: TextStyle(
+                  color: MyColors.black,
+                  fontSize: widget.fontSize,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              subtitle:
+                  Text(widget.isReversed ? widget.title : widget.subTitle),
+              trailing: BlocBuilder<NameListTileBloc, NameListTileState>(
+                buildWhen: (previous, current) {
+                  if (current is NameListTileMarkingFavorite &&
+                      current.id == widget.id) {
+                    return true;
+                  } else if (current is NameListTileUnmarkingFavorite &&
+                      current.id == widget.id) {
+                    return true;
+                  } else if (previous != current) {
+                    return true;
+                  }
+                  return false;
+                },
+                builder: (context, state) {
+                  return IconButton(
+                    onPressed: () {
+                      widget.nameListTileBloc =
+                          BlocProvider.of<NameListTileBloc>(context);
+                      if (widget.isFavorite) {
+                        widget.nameListTileBloc
+                            .add(NameListTileUnmarkedFavorite(id: widget.id));
+                      } else {
+                        widget.nameListTileBloc
+                            .add(NameListTileMarkedFavorite(id: widget.id));
+                      }
+                    },
+                    icon: widget.isFavorite
+                        ? _buildSizedIcon('assets/icons/tanlangan.png', 22)
+                        : _buildSizedIcon('assets/icons/tanlanmagan.png', 22),
+                  );
+                },
+              ),
             ),
-          ),
-          const Divider(
-            indent: 20,
-            endIndent: 20,
-          ),
-        ],
+            const Divider(
+              indent: 20,
+              endIndent: 20,
+            ),
+          ],
+        ),
       ),
     );
   }

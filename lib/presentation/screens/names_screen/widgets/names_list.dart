@@ -5,15 +5,21 @@ import '../../../../data/models/name_model.dart';
 import 'name_list_tile.dart';
 
 class NamesList extends StatelessWidget {
-  final ScrollController _listController = ScrollController();
-  //Make sure to set corrent values
-  double listItemHeight = 80;
+  final ScrollController _listController;
+  //Make sure to set correct values
+  final double listItemHeight;
+  final double namesOffset;
   String firstLetter = 'А';
+  final bool isReversed;
   late CharacterIndicatorBloc characterIndicatorBloc;
   NamesList({
     Key? key,
     required this.names,
-  }) : super(key: key) {
+    required this.isReversed,
+    required this.listItemHeight,
+    this.namesOffset = 0.0,
+  })  : _listController = ScrollController(initialScrollOffset: namesOffset),
+        super(key: key) {
     _listController.addListener(observeFirstCharacters);
   }
   List<NameModel> names;
@@ -27,10 +33,12 @@ class NamesList extends StatelessWidget {
           return NameListTile(
             key: Key(names[index].id.toString()),
             id: names[index].id,
+            isReversed: isReversed,
             title: names[index].nameCyr,
             subTitle: names[index].nameLat,
             filteredNames: names,
             isFavorite: names[index].isFavorite,
+            listTileHeight: MediaQuery.of(context).size.height * 0.11,
           );
         });
   }

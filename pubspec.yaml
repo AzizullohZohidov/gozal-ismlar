@@ -32,6 +32,7 @@ dependencies:
   flutter_bloc: ^8.0.0
   equatable: ^2.0.3
   sqflite: ^2.0.1
+  share_plus: ^3.0.4
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -76,6 +77,10 @@ flutter:
     - assets/icons/back_arrow.png
     - assets/icons/share.png
     - assets/icons/letter_category.png
+    - assets/icons/link_to.png
+    - assets/icons/lang_switch.png
+    - assets/icons/equality.png
+    - assets/icons/delete.png
 
     - assets/json/names.json
   #   - images/a_dot_burr.jpeg

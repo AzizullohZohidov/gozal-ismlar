@@ -1,4 +1,5 @@
 final String tableNames = 'names';
+final String tableRecentlySearchedNames = 'rec_names';
 
 class NameFields {
   static final List<String> values = [
@@ -20,6 +21,16 @@ class NameFields {
   static final String peopleWithThisName = 'namedPeople';
   static final String isFavorite = 'isLoved';
   static final String comingLang = 'comingLang';
+}
+
+class RecentlySearchedNameFields {
+  static final List<String> values = [
+    id,
+    searchedName,
+  ];
+
+  static final String id = '_id';
+  static final String searchedName = 'searchedName';
 }
 
 class NameModel {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gozal_ismlar/presentation/screens/names_screen/widgets/letters_list.dart';
 import '../../../business_logic/bloc/character_indicator_bloc/character_indicator_bloc.dart';
 import '../../../business_logic/bloc/names_bloc/names_bloc.dart';
 import '../../../core/constants/my_colors.dart';
@@ -90,7 +91,15 @@ class _NamesScreenState extends State<NamesScreen>
           child: BlocBuilder<NamesBloc, NamesState>(
             builder: (context, state) {
               if (state is NamesInitializing) {
-                return _buildNamesList(state.maleNames, state.femaleNames);
+                return _buildNamesList(
+                  state.maleNames,
+                  state.femaleNames,
+                  state.isReversed,
+                  state.maleNamesOffset,
+                  state.femaleNamesOffset,
+                );
+              } else if (state is NamesSettingAlphabet) {
+                return _buildCategoryLettersList();
               }
               return _buildEmptyNamesList();
             },
@@ -103,6 +112,9 @@ class _NamesScreenState extends State<NamesScreen>
   Widget _buildNamesList(
     List<NameModel> maleNames,
     List<NameModel> femaleNames,
+    bool isReversed,
+    double maleNamesOffset,
+    double femaleNamesOffset,
   ) {
     return TabBarView(
       controller: _tabController,
@@ -110,16 +122,55 @@ class _NamesScreenState extends State<NamesScreen>
         // first tab bar view widget
         Column(
           children: [
-            const CharacterIndicator(),
-            Expanded(child: NamesList(names: maleNames)),
+            CharacterIndicator(),
+            Expanded(
+                child: NamesList(
+              names: maleNames,
+              listItemHeight: MediaQuery.of(context).size.height * 0.11,
+              isReversed: isReversed,
+              namesOffset: maleNamesOffset,
+            )),
           ],
         ),
 
         // second tab bar view widget
         Column(
           children: [
-            const CharacterIndicator(),
-            Expanded(child: NamesList(names: femaleNames)),
+            CharacterIndicator(),
+            Expanded(
+                child: NamesList(
+              names: femaleNames,
+              listItemHeight: MediaQuery.of(context).size.height * 0.11,
+              isReversed: isReversed,
+              namesOffset: femaleNamesOffset,
+            )),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget _buildCategoryLettersList() {
+    return TabBarView(
+      controller: _tabController,
+      children: [
+        // first tab bar view widget
+        Column(
+          children: [
+            CharacterIndicator(),
+            Expanded(
+              child: LettersList(),
+            ),
+          ],
+        ),
+
+        // second tab bar view widget
+        Column(
+          children: [
+            CharacterIndicator(),
+            Expanded(
+              child: LettersList(),
+            ),
           ],
         ),
       ],
@@ -132,14 +183,14 @@ class _NamesScreenState extends State<NamesScreen>
       children: [
         // first tab bar view widget
         Column(
-          children: const [
+          children: [
             CharacterIndicator(),
           ],
         ),
 
         // second tab bar view widget
         Column(
-          children: const [
+          children: [
             CharacterIndicator(),
           ],
         ),

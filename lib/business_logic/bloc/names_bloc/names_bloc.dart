@@ -12,6 +12,7 @@ class NamesBloc extends Bloc<NamesEvent, NamesState> {
   NamesBloc({required this.namesRepository}) : super(NamesInitial()) {
     on<NamesInitialized>(_onNamesInitialized);
     on<NamesFiltered>(_onNamesFiltered);
+    on<NamesSetAlphabet>(_onNamesSetAlphabet);
   }
 
   _onNamesInitialized(
@@ -20,7 +21,22 @@ class NamesBloc extends Bloc<NamesEvent, NamesState> {
   ) {
     List<NameModel> maleNames = namesRepository.getAllNames(true);
     List<NameModel> femaleNames = namesRepository.getAllNames(false);
+    double maleNamesOffset = 0.0;
+    double femaleNamesOffset = 0.0;
 
+    if (event.startingLetter != 'А') {
+      int itemsPassed = maleNames.indexWhere(
+              (name) => name.nameCyr.startsWith(event.startingLetter)) +
+          1;
+
+      maleNamesOffset = itemsPassed * event.tileHeight;
+
+      itemsPassed = femaleNames.indexWhere(
+              (name) => name.nameCyr.startsWith(event.startingLetter)) +
+          1;
+
+      femaleNamesOffset = itemsPassed * event.tileHeight;
+    }
     /*for (NameModel name in femaleNames) {
       print('''
       ${name.nameCyr},
@@ -28,9 +44,15 @@ class NamesBloc extends Bloc<NamesEvent, NamesState> {
       ''');
     }*/
 
+    print('male offset $maleNamesOffset');
+    print('female offset $femaleNamesOffset');
+
     emit(NamesInitializing(
       maleNames: maleNames,
       femaleNames: femaleNames,
+      maleNamesOffset: maleNamesOffset,
+      femaleNamesOffset: femaleNamesOffset,
+      isReversed: event.isReversed,
     ));
   }
 
@@ -40,8 +62,14 @@ class NamesBloc extends Bloc<NamesEvent, NamesState> {
   ) {
     List<NameModel> filteredNames = namesRepository.getNamesStartingWith(
       event.pattern,
-      event.isMaleName,
     );
     emit(NamesFiltering(filteredNames: filteredNames));
+  }
+
+  _onNamesSetAlphabet(
+    NamesSetAlphabet event,
+    Emitter<NamesState> emit,
+  ) {
+    emit(NamesSettingAlphabet());
   }
 }

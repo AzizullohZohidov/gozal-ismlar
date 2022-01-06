@@ -5,6 +5,8 @@ class MyColors {
   static final Color green = Color.fromRGBO(46, 107, 48, 1);
   static final Color lightGreen = Color.fromRGBO(179, 211, 54, 1);
 
+  static final Color greyText = Color(0XFF959595);
+
   static final Color deepOrange = Color.fromRGBO(248, 101, 12, 1);
   static final Color yellow = Color.fromRGBO(255, 230, 100, 1);
 
@@ -16,6 +18,7 @@ class MyColors {
   static final Color tabBar = Color(0XFFFAFAFA);
   static final Color characterIndicatorColor = Color(0XFFFAFAFA);
   static final Color descriptionTextColor = Color.fromRGBO(135, 135, 139, 1);
+  static final Color statusBarIconBg = Color(0XFFFAFAFA);
 
   static final Color white = Colors.white;
   static final Color black = Colors.black;

@@ -7,4 +7,10 @@ abstract class FavoritesEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class FavoritesInitialized extends FavoritesEvent {}
+class FavoritesInitialized extends FavoritesEvent {
+  final bool isReversed;
+  FavoritesInitialized({this.isReversed = false});
+
+  @override
+  List<Object> get props => [isReversed];
+}

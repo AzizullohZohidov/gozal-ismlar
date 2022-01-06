@@ -20,10 +20,9 @@ class NamesRepository {
         .toList();
   }
 
-  List<NameModel> getNamesStartingWith(String pattern, bool isMaleName) {
+  List<NameModel> getNamesStartingWith(String pattern) {
     return allNames
-        .where((nameModel) => (nameModel.nameCyr.startsWith(pattern) &&
-            nameModel.isMaleName == isMaleName))
+        .where((nameModel) => (nameModel.nameCyr.startsWith(pattern)))
         .toList();
   }
 
@@ -47,5 +46,11 @@ class NamesRepository {
     print('Unmarking as favorite name');
     await NamesDatabase.instance.markFavorite(name);
     print('Name ${name.nameCyr} has been unfavorited');
+  }
+
+  List<NameModel> getNamesByIds(List<int> ids) {
+    List<NameModel> namesByIds =
+        allNames.where((name) => ids.contains(name.id)).toList();
+    return namesByIds;
   }
 }

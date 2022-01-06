@@ -7,10 +7,20 @@ abstract class NamesEvent extends Equatable {
 }
 
 class NamesInitialized extends NamesEvent {
-  NamesInitialized();
+  final bool isReversed;
+  final double tileHeight;
+  final String startingLetter;
+  NamesInitialized({
+    this.isReversed = false,
+    this.tileHeight = 0.0,
+    this.startingLetter = 'А',
+  });
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [
+        isReversed,
+        startingLetter,
+      ];
 }
 
 class NamesFiltered extends NamesEvent {
@@ -27,4 +37,11 @@ class NamesFiltered extends NamesEvent {
         isMaleName,
         pattern,
       ];
+}
+
+class NamesSetAlphabet extends NamesEvent {
+  NamesSetAlphabet();
+
+  @override
+  List<Object?> get props => [];
 }

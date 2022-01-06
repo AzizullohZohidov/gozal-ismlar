@@ -16,6 +16,9 @@ class FavoritesBloc extends Bloc<FavoritesEvent, FavoritesState> {
     Emitter<FavoritesState> emitter,
   ) {
     List<NameModel> favoriteNames = namesRepository.getFavoriteNames();
-    emitter(FavoritesInitializing(favoriteNames: favoriteNames));
+    emitter(FavoritesInitializing(
+      favoriteNames: favoriteNames,
+      isReversed: event.isReversed,
+    ));
   }
 }

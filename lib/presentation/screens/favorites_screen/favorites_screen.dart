@@ -37,12 +37,16 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                 return Expanded(
                   child: NamesList(
                     names: state.favoriteNames,
+                    listItemHeight: MediaQuery.of(context).size.height * 0.11,
+                    isReversed: state.isReversed,
                   ),
                 );
               } else {
                 return Expanded(
                   child: NamesList(
                     names: const [],
+                    listItemHeight: MediaQuery.of(context).size.height * 0.11,
+                    isReversed: false,
                   ),
                 );
               }
