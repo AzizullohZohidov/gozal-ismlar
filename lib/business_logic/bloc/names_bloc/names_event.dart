@@ -45,3 +45,18 @@ class NamesSetAlphabet extends NamesEvent {
   @override
   List<Object?> get props => [];
 }
+
+class NamesLetterChosen extends NamesEvent {
+  final String letter;
+  NamesLetterChosen({required this.letter,});
+
+  @override
+  List<Object?> get props => [letter];
+}
+
+class NamesLangChanged extends NamesEvent {
+  NamesLangChanged();
+
+  @override
+  List<Object?> get props => [];
+}

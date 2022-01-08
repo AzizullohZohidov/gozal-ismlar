@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gozal_ismlar/business_logic/bloc/character_indicator_bloc/character_indicator_bloc.dart';
 import 'package:gozal_ismlar/business_logic/bloc/favorites_bloc/favorites_bloc.dart';
 import 'package:gozal_ismlar/business_logic/bloc/names_bloc/names_bloc.dart';
 import 'package:gozal_ismlar/presentation/screens/search_screen/search_screen.dart';
@@ -15,7 +16,7 @@ class LandingScreen extends StatefulWidget {
   State<LandingScreen> createState() => _LandingScreenState();
 }
 
-class _LandingScreenState extends State<LandingScreen> {
+class _LandingScreenState extends State<LandingScreen> with SingleTickerProviderStateMixin{
   var pageIndex = 0;
   bool cyrill = false;
 
@@ -51,7 +52,7 @@ class _LandingScreenState extends State<LandingScreen> {
             onTap: () {
               cyrill = !cyrill;
               BlocProvider.of<NamesBloc>(context).add(
-                NamesInitialized(isReversed: cyrill),
+                NamesLangChanged(),
               );
               BlocProvider.of<FavoritesBloc>(context).add(
                 FavoritesInitialized(isReversed: cyrill),
@@ -118,6 +119,7 @@ class _LandingScreenState extends State<LandingScreen> {
         currentIndex: pageIndex,
         onTap: (index) => setState(() {
           pageIndex = index;
+          BlocProvider.of<CharacterIndicatorBloc>(context).add(CharacterIndicatorLetterChanged(newLetter: 'А'));
         }),
         backgroundColor: MyColors.bottomNavBarColor,
         selectedItemColor: Colors.black,

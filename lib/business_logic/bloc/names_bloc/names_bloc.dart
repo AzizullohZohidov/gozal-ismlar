@@ -13,6 +13,8 @@ class NamesBloc extends Bloc<NamesEvent, NamesState> {
     on<NamesInitialized>(_onNamesInitialized);
     on<NamesFiltered>(_onNamesFiltered);
     on<NamesSetAlphabet>(_onNamesSetAlphabet);
+    on<NamesLetterChosen>(_onNamesLetterChosen);
+    on<NamesLangChanged>(_onNamesLangChanged);
   }
 
   _onNamesInitialized(
@@ -21,37 +23,10 @@ class NamesBloc extends Bloc<NamesEvent, NamesState> {
   ) {
     List<NameModel> maleNames = namesRepository.getAllNames(true);
     List<NameModel> femaleNames = namesRepository.getAllNames(false);
-    double maleNamesOffset = 0.0;
-    double femaleNamesOffset = 0.0;
-
-    if (event.startingLetter != 'А') {
-      int itemsPassed = maleNames.indexWhere(
-              (name) => name.nameCyr.startsWith(event.startingLetter)) +
-          1;
-
-      maleNamesOffset = itemsPassed * event.tileHeight;
-
-      itemsPassed = femaleNames.indexWhere(
-              (name) => name.nameCyr.startsWith(event.startingLetter)) +
-          1;
-
-      femaleNamesOffset = itemsPassed * event.tileHeight;
-    }
-    /*for (NameModel name in femaleNames) {
-      print('''
-      ${name.nameCyr},
-      ${name.isMaleName},
-      ''');
-    }*/
-
-    print('male offset $maleNamesOffset');
-    print('female offset $femaleNamesOffset');
 
     emit(NamesInitializing(
       maleNames: maleNames,
       femaleNames: femaleNames,
-      maleNamesOffset: maleNamesOffset,
-      femaleNamesOffset: femaleNamesOffset,
       isReversed: event.isReversed,
     ));
   }
@@ -71,5 +46,34 @@ class NamesBloc extends Bloc<NamesEvent, NamesState> {
     Emitter<NamesState> emit,
   ) {
     emit(NamesSettingAlphabet());
+  }
+
+  _onNamesLetterChosen(
+    NamesLetterChosen event,
+    Emitter<NamesState> emit,
+  ) {
+    List<NameModel> filteredMaleNames = namesRepository.getNamesByFirstLetterAndGender(event.letter, true);
+    List<NameModel> filteredFemaleNames = namesRepository.getNamesByFirstLetterAndGender(event.letter, false);
+    emit(NamesFilteredByLetter(filteredMaleNames: filteredMaleNames, filteredFemaleNames: filteredFemaleNames, isReversed: false));
+  }
+
+  _onNamesLangChanged(
+    NamesLangChanged event,
+    Emitter<NamesState> emit,
+  ) {
+    print('Within NamesLangChanged handler');
+    if(state is NamesInitializing){
+      print('Last state was NamesInitializing');
+      var currState = (state as NamesInitializing);
+      var newState = currState.copyWith(null, null, !currState.isReversed);
+      emit(newState);
+    } else if(state is NamesFilteredByLetter){
+      print('Last state was NamesFilteredByLetter');
+      var currState = (state as NamesFilteredByLetter);
+      var newState = currState.copyWith(null, null, !currState.isReversed);
+      emit(newState);
+    } else{
+      emit(state);
+    }
   }
 }

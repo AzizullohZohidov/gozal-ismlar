@@ -11,24 +11,26 @@ class NamesInitial extends NamesState {
 class NamesInitializing extends NamesState {
   final List<NameModel> maleNames;
   final List<NameModel> femaleNames;
-  final double maleNamesOffset;
-  final double femaleNamesOffset;
   final bool isReversed;
 
   NamesInitializing({
     required this.maleNames,
     required this.femaleNames,
-    this.maleNamesOffset = 0.0,
-    this.femaleNamesOffset = 0.0,
     this.isReversed = false,
   });
+
+  NamesInitializing copyWith(List<NameModel>? maleNames, List<NameModel>? femaleNames, bool? isReversed,) {
+    return NamesInitializing(
+      maleNames: maleNames ?? this.maleNames,
+      femaleNames: femaleNames ?? this.femaleNames,
+      isReversed: isReversed ?? this.isReversed,
+    );
+  }
 
   @override
   List<Object?> get props => [
         maleNames,
         femaleNames,
-        maleNamesOffset,
-        femaleNamesOffset,
         isReversed,
       ];
 }
@@ -47,4 +49,27 @@ class NamesSettingAlphabet extends NamesState {
 
   @override
   List<Object?> get props => [];
+}
+
+class NamesFilteredByLetter extends NamesState {
+  final List<NameModel> filteredMaleNames;
+  final List<NameModel> filteredFemaleNames;
+  final bool isReversed;
+  
+  NamesFilteredByLetter({
+    required this.filteredMaleNames,
+    required this.filteredFemaleNames,
+    required this.isReversed,
+  });
+
+  NamesFilteredByLetter copyWith(List<NameModel>? maleNames, List<NameModel>? femaleNames, bool? isReversed,) {
+    return NamesFilteredByLetter(
+      filteredMaleNames: maleNames ?? this.filteredMaleNames,
+      filteredFemaleNames: femaleNames ?? this.filteredFemaleNames,
+      isReversed: isReversed ?? this.isReversed,
+    );
+  }
+
+  @override
+  List<Object?> get props => [filteredMaleNames, filteredFemaleNames, isReversed];
 }

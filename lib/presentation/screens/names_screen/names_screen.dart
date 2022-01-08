@@ -24,6 +24,7 @@ class _NamesScreenState extends State<NamesScreen>
   @override
   void initState() {
     _tabController = TabController(length: 2, vsync: this);
+    _tabController.addListener(() {BlocProvider.of<CharacterIndicatorBloc>(context).add(CharacterIndicatorLetterChanged(newLetter: 'А'));});
     widget.namesBloc = BlocProvider.of<NamesBloc>(context);
     widget.namesBloc.add(NamesInitialized());
     super.initState();
@@ -95,11 +96,11 @@ class _NamesScreenState extends State<NamesScreen>
                   state.maleNames,
                   state.femaleNames,
                   state.isReversed,
-                  state.maleNamesOffset,
-                  state.femaleNamesOffset,
                 );
               } else if (state is NamesSettingAlphabet) {
                 return _buildCategoryLettersList();
+              } else if(state is NamesFilteredByLetter) {
+                return _buildNamesList(state.filteredMaleNames, state.filteredFemaleNames, state.isReversed,);
               }
               return _buildEmptyNamesList();
             },
@@ -113,8 +114,6 @@ class _NamesScreenState extends State<NamesScreen>
     List<NameModel> maleNames,
     List<NameModel> femaleNames,
     bool isReversed,
-    double maleNamesOffset,
-    double femaleNamesOffset,
   ) {
     return TabBarView(
       controller: _tabController,
@@ -128,7 +127,6 @@ class _NamesScreenState extends State<NamesScreen>
               names: maleNames,
               listItemHeight: MediaQuery.of(context).size.height * 0.11,
               isReversed: isReversed,
-              namesOffset: maleNamesOffset,
             )),
           ],
         ),
@@ -142,7 +140,6 @@ class _NamesScreenState extends State<NamesScreen>
               names: femaleNames,
               listItemHeight: MediaQuery.of(context).size.height * 0.11,
               isReversed: isReversed,
-              namesOffset: femaleNamesOffset,
             )),
           ],
         ),

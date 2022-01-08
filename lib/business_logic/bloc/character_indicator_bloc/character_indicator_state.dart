@@ -17,3 +17,10 @@ class CharacterIndicatorLetterChanging extends CharacterIndicatorState {
   @override
   List<Object> get props => [newLetter];
 }
+
+class CharacterIndicatorEmptyState extends CharacterIndicatorState {
+  const CharacterIndicatorEmptyState();
+
+  @override
+  List<Object> get props => [];
+}

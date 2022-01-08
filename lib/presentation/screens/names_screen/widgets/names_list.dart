@@ -5,10 +5,9 @@ import '../../../../data/models/name_model.dart';
 import 'name_list_tile.dart';
 
 class NamesList extends StatelessWidget {
-  final ScrollController _listController;
+  final ScrollController _listController = ScrollController();
   //Make sure to set correct values
   final double listItemHeight;
-  final double namesOffset;
   String firstLetter = 'А';
   final bool isReversed;
   late CharacterIndicatorBloc characterIndicatorBloc;
@@ -17,8 +16,7 @@ class NamesList extends StatelessWidget {
     required this.names,
     required this.isReversed,
     required this.listItemHeight,
-    this.namesOffset = 0.0,
-  })  : _listController = ScrollController(initialScrollOffset: namesOffset),
+  })  :
         super(key: key) {
     _listController.addListener(observeFirstCharacters);
   }
@@ -49,7 +47,7 @@ class NamesList extends StatelessWidget {
     if (newLetter != firstLetter) {
       firstLetter = newLetter;
       characterIndicatorBloc
-          .add(CharacterIndicatorLetterChanged(newLetter: firstLetter));
+          .add(CharacterIndicatorLetterChanged(newLetter: newLetter));
     }
   }
 }

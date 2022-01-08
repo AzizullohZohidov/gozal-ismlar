@@ -22,10 +22,7 @@ class LetterTile extends StatelessWidget {
         children: [
           ListTile(
             onTap: () {
-              BlocProvider.of<NamesBloc>(context).add(NamesInitialized(
-                startingLetter: letter,
-                tileHeight: MediaQuery.of(context).size.height * 0.11,
-              ));
+              BlocProvider.of<NamesBloc>(context).add(NamesLetterChosen(letter: letter));
             },
             title: Text(
               letter,

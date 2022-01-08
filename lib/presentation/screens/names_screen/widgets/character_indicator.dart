@@ -24,10 +24,11 @@ class CharacterIndicator extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<NamesBloc, NamesState>(
       builder: (context, state) {
-        if (state is NamesSettingAlphabet) {
+        if (state is NamesSettingAlphabet || state is NamesFilteredByLetter) {
           return GestureDetector(
             onTap: () {
               BlocProvider.of<NamesBloc>(context).add(NamesInitialized());
+              BlocProvider.of<CharacterIndicatorBloc>(context).add(CharacterIndicatorLetterChanged(newLetter: 'А'));
             },
             child: Container(
               height: MediaQuery.of(context).size.height * 0.055,

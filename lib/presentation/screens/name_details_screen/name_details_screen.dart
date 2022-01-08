@@ -263,7 +263,7 @@ class _NameDetailsScreenState extends State<NameDetailsScreen> {
           height: MediaQuery.of(context).size.width * 0.1,
           width: MediaQuery.of(context).size.width * 0.1,
           decoration: BoxDecoration(
-            color: MyColors.lightGrey,
+            color: MyColors.statusBarIconBg,
             borderRadius: BorderRadius.circular(12),
           ),
           child: Image.asset(

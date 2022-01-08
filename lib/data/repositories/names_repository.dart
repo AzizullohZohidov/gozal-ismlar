@@ -26,6 +26,12 @@ class NamesRepository {
         .toList();
   }
 
+  List<NameModel> getNamesByFirstLetterAndGender(String pattern, bool isMale) {
+    return allNames
+        .where((nameModel) => (nameModel.nameCyr.startsWith(pattern) && nameModel.isMaleName == isMale))
+        .toList();
+  }
+
   List<NameModel> getFavoriteNames() {
     return allNames.where((nameModel) => nameModel.isFavorite).toList();
   }
