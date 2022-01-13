@@ -1,5 +1,8 @@
+import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gozal_ismlar/business_logic/bloc/lang_bloc/lang_bloc.dart';
+import 'package:gozal_ismlar/lang/locale_keys.g.dart';
 import 'package:gozal_ismlar/presentation/screens/names_screen/widgets/letters_list.dart';
 import '../../../business_logic/bloc/character_indicator_bloc/character_indicator_bloc.dart';
 import '../../../business_logic/bloc/names_bloc/names_bloc.dart';
@@ -24,7 +27,10 @@ class _NamesScreenState extends State<NamesScreen>
   @override
   void initState() {
     _tabController = TabController(length: 2, vsync: this);
-    _tabController.addListener(() {BlocProvider.of<CharacterIndicatorBloc>(context).add(CharacterIndicatorLetterChanged(newLetter: 'А'));});
+    _tabController.addListener(() {
+      BlocProvider.of<CharacterIndicatorBloc>(context)
+          .add(CharacterIndicatorLetterChanged(newLetter: 'А'));
+    });
     widget.namesBloc = BlocProvider.of<NamesBloc>(context);
     widget.namesBloc.add(NamesInitialized());
     super.initState();
@@ -32,8 +38,15 @@ class _NamesScreenState extends State<NamesScreen>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: _buildMaleFemaleTabBar(),
+    return BlocListener<LangBloc, LangState>(
+      listener: (context, state) {
+        if (state is LangChanging) {
+          setState(() {});
+        }
+      },
+      child: Scaffold(
+        body: _buildMaleFemaleTabBar(),
+      ),
     );
   }
 
@@ -78,12 +91,12 @@ class _NamesScreenState extends State<NamesScreen>
 
             labelColor: Colors.white,
             unselectedLabelColor: Colors.black,
-            tabs: const [
+            tabs: [
               Tab(
-                text: 'Болалар исми',
+                text: LocaleKeys.male_names.tr(),
               ),
               Tab(
-                text: 'Қизлар исми',
+                text: LocaleKeys.female_names.tr(),
               ),
             ],
           ),
@@ -99,8 +112,12 @@ class _NamesScreenState extends State<NamesScreen>
                 );
               } else if (state is NamesSettingAlphabet) {
                 return _buildCategoryLettersList();
-              } else if(state is NamesFilteredByLetter) {
-                return _buildNamesList(state.filteredMaleNames, state.filteredFemaleNames, state.isReversed,);
+              } else if (state is NamesFilteredByLetter) {
+                return _buildNamesList(
+                  state.filteredMaleNames,
+                  state.filteredFemaleNames,
+                  state.isReversed,
+                );
               }
               return _buildEmptyNamesList();
             },

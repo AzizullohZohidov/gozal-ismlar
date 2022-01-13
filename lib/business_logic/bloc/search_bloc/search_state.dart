@@ -22,13 +22,18 @@ class SearchInitializing extends SearchState {
 
 class SearchFiltering extends SearchState {
   final List<NameModel> filteredNames;
+  final bool isReversed;
 
   SearchFiltering({
     required this.filteredNames,
+    required this.isReversed,
   });
 
   @override
-  List<Object> get props => [filteredNames];
+  List<Object> get props => [
+        filteredNames,
+        isReversed,
+      ];
 }
 
 class SearchClearing extends SearchState {

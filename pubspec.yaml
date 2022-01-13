@@ -34,6 +34,7 @@ dependencies:
   sqflite: ^2.0.1
   share_plus: ^3.0.4
   url_launcher: ^6.0.18
+  easy_localization: ^3.0.0
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -84,6 +85,9 @@ flutter:
     - assets/icons/delete.png
 
     - assets/json/names.json
+
+    - assets/lang/uz-CR.json
+    - assets/lang/uz-LAT.json
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 

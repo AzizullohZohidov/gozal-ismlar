@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:gozal_ismlar/core/constants/curr_lang.dart';
 import '../../../data/models/name_model.dart';
 import '../../../data/repositories/names_repository.dart';
 
@@ -18,7 +19,7 @@ class FavoritesBloc extends Bloc<FavoritesEvent, FavoritesState> {
     List<NameModel> favoriteNames = namesRepository.getFavoriteNames();
     emitter(FavoritesInitializing(
       favoriteNames: favoriteNames,
-      isReversed: event.isReversed,
+      isReversed: !CurrLag.isCyr,
     ));
   }
 }

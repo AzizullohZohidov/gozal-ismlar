@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:gozal_ismlar/core/constants/curr_lang.dart';
 import 'package:gozal_ismlar/data/data_providers/recently_searched_database.dart';
 import 'package:gozal_ismlar/data/models/name_model.dart';
 import 'package:gozal_ismlar/data/repositories/names_repository.dart';
@@ -32,7 +33,12 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   ) async {
     emit(const SearchEmpty());
     List<NameModel> names = namesRepository.getNamesStartingWith(event.pattern);
-    emit(SearchFiltering(filteredNames: names));
+    emit(
+      SearchFiltering(
+        filteredNames: names,
+        isReversed: !CurrLag.isCyr,
+      ),
+    );
   }
 
   _onSearchBarEmptied(

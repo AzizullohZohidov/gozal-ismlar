@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:gozal_ismlar/core/constants/curr_lang.dart';
 import '../../../data/models/name_model.dart';
 import '../../../data/repositories/names_repository.dart';
 import 'package:meta/meta.dart';
@@ -27,7 +28,7 @@ class NamesBloc extends Bloc<NamesEvent, NamesState> {
     emit(NamesInitializing(
       maleNames: maleNames,
       femaleNames: femaleNames,
-      isReversed: event.isReversed,
+      isReversed: !CurrLag.isCyr,
     ));
   }
 
@@ -52,9 +53,14 @@ class NamesBloc extends Bloc<NamesEvent, NamesState> {
     NamesLetterChosen event,
     Emitter<NamesState> emit,
   ) {
-    List<NameModel> filteredMaleNames = namesRepository.getNamesByFirstLetterAndGender(event.letter, true);
-    List<NameModel> filteredFemaleNames = namesRepository.getNamesByFirstLetterAndGender(event.letter, false);
-    emit(NamesFilteredByLetter(filteredMaleNames: filteredMaleNames, filteredFemaleNames: filteredFemaleNames, isReversed: false));
+    List<NameModel> filteredMaleNames =
+        namesRepository.getNamesByFirstLetterAndGender(event.letter, true);
+    List<NameModel> filteredFemaleNames =
+        namesRepository.getNamesByFirstLetterAndGender(event.letter, false);
+    emit(NamesFilteredByLetter(
+        filteredMaleNames: filteredMaleNames,
+        filteredFemaleNames: filteredFemaleNames,
+        isReversed: !CurrLag.isCyr));
   }
 
   _onNamesLangChanged(
@@ -62,17 +68,17 @@ class NamesBloc extends Bloc<NamesEvent, NamesState> {
     Emitter<NamesState> emit,
   ) {
     print('Within NamesLangChanged handler');
-    if(state is NamesInitializing){
+    if (state is NamesInitializing) {
       print('Last state was NamesInitializing');
       var currState = (state as NamesInitializing);
-      var newState = currState.copyWith(null, null, !currState.isReversed);
+      var newState = currState.copyWith(null, null, !CurrLag.isCyr);
       emit(newState);
-    } else if(state is NamesFilteredByLetter){
+    } else if (state is NamesFilteredByLetter) {
       print('Last state was NamesFilteredByLetter');
       var currState = (state as NamesFilteredByLetter);
-      var newState = currState.copyWith(null, null, !currState.isReversed);
+      var newState = currState.copyWith(null, null, !CurrLag.isCyr);
       emit(newState);
-    } else{
+    } else {
       emit(state);
     }
   }

@@ -60,7 +60,7 @@ class _SearchScreenState extends State<SearchScreen> {
                         names: state.filteredNames,
                         listItemHeight:
                             MediaQuery.of(context).size.height * 0.11,
-                        isReversed: false,
+                        isReversed: state.isReversed,
                         saveInSearched: true,
                       );
                     } else if (state is SearchClearing) {

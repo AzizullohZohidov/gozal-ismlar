@@ -1,9 +1,12 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gozal_ismlar/business_logic/bloc/lang_bloc/lang_bloc.dart';
 import 'package:gozal_ismlar/business_logic/bloc/search_bloc/search_bloc.dart';
 import 'package:gozal_ismlar/data/data_providers/names_database.dart';
 import 'package:gozal_ismlar/data/models/name_model.dart';
+import 'package:gozal_ismlar/lang/codegen_loader.g.dart';
 import 'business_logic/bloc/names_bloc/names_bloc.dart';
 import 'business_logic/bloc/names_lsit_tile_bloc/name_list_tile_bloc.dart';
 import 'core/constants/my_colors.dart';
@@ -13,9 +16,18 @@ import 'business_logic/bloc/character_indicator_bloc/character_indicator_bloc.da
 import 'business_logic/bloc/favorites_bloc/favorites_bloc.dart';
 import 'business_logic/bloc/name_details_bloc/name_details_bloc.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(MyApp());
+  await EasyLocalization.ensureInitialized();
+  runApp(
+    EasyLocalization(
+      supportedLocales: [Locale('uz', 'CR'), Locale('uz', 'LAT')],
+      path: 'assets/lang',
+      fallbackLocale: Locale('uz', 'CR'),
+      assetLoader: CodegenLoader(),
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -87,6 +99,9 @@ class MyApp extends StatelessWidget {
             BlocProvider<SearchBloc>(
               create: (context) => SearchBloc(namesRepository: namesRepository),
             ),
+            BlocProvider<LangBloc>(
+              create: (context) => LangBloc(),
+            ),
           ],
           child: MaterialApp(
             title: 'Go\'zal Ismlar',
@@ -103,6 +118,9 @@ class MyApp extends StatelessWidget {
                 ),
               ),
             ),
+            localizationsDelegates: context.localizationDelegates,
+            supportedLocales: context.supportedLocales,
+            locale: context.locale,
             home: LandingScreen(),
           ),
         );

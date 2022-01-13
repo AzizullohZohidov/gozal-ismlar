@@ -1,8 +1,12 @@
+import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gozal_ismlar/business_logic/bloc/character_indicator_bloc/character_indicator_bloc.dart';
 import 'package:gozal_ismlar/business_logic/bloc/favorites_bloc/favorites_bloc.dart';
+import 'package:gozal_ismlar/business_logic/bloc/lang_bloc/lang_bloc.dart';
 import 'package:gozal_ismlar/business_logic/bloc/names_bloc/names_bloc.dart';
+import 'package:gozal_ismlar/core/constants/curr_lang.dart';
+import 'package:gozal_ismlar/lang/locale_keys.g.dart';
 import 'package:gozal_ismlar/presentation/screens/search_screen/search_screen.dart';
 import '../../../core/constants/my_colors.dart';
 import '../favorites_screen/favorites_screen.dart';
@@ -16,7 +20,8 @@ class LandingScreen extends StatefulWidget {
   State<LandingScreen> createState() => _LandingScreenState();
 }
 
-class _LandingScreenState extends State<LandingScreen> with SingleTickerProviderStateMixin{
+class _LandingScreenState extends State<LandingScreen>
+    with SingleTickerProviderStateMixin {
   var pageIndex = 0;
   bool cyrill = false;
 
@@ -49,7 +54,7 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: GestureDetector(
-            onTap: () {
+            onTap: () async {
               cyrill = !cyrill;
               BlocProvider.of<NamesBloc>(context).add(
                 NamesLangChanged(),
@@ -57,6 +62,15 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
               BlocProvider.of<FavoritesBloc>(context).add(
                 FavoritesInitialized(isReversed: cyrill),
               );
+              BlocProvider.of<LangBloc>(context).add(LangChanged());
+              if (CurrLag.isCyr) {
+                CurrLag.toggle();
+                context.setLocale(Locale('uz', 'LAT'));
+              } else {
+                CurrLag.toggle();
+                context.setLocale(Locale('uz', 'CR'));
+              }
+              //setState(() {});
             },
             child: Container(
               margin: const EdgeInsets.only(right: 4.0),
@@ -119,7 +133,8 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
         currentIndex: pageIndex,
         onTap: (index) => setState(() {
           pageIndex = index;
-          BlocProvider.of<CharacterIndicatorBloc>(context).add(CharacterIndicatorLetterChanged(newLetter: 'А'));
+          BlocProvider.of<CharacterIndicatorBloc>(context)
+              .add(CharacterIndicatorLetterChanged(newLetter: 'А'));
         }),
         backgroundColor: MyColors.bottomNavBarColor,
         selectedItemColor: Colors.black,
@@ -130,18 +145,18 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
           BottomNavigationBarItem(
             icon: _buildSizedIcon('assets/icons/ismlar_unselected.png', 22),
             activeIcon: _buildSizedIcon('assets/icons/ismlar_selected.png', 22),
-            label: 'Исмлар',
+            label: LocaleKeys.names.tr(),
           ),
           BottomNavigationBarItem(
             icon: _buildSizedIcon('assets/icons/saralangan_unselected.png', 22),
             activeIcon:
                 _buildSizedIcon('assets/icons/saralangan_selected.png', 22),
-            label: 'Сараланган',
+            label: LocaleKeys.favorites.tr(),
           ),
           BottomNavigationBarItem(
             icon: _buildSizedIcon('assets/icons/info_unselected.png', 22),
             activeIcon: _buildSizedIcon('assets/icons/info_selected.png', 22),
-            label: 'Инфо',
+            label: LocaleKeys.info.tr(),
           ),
         ],
       ),

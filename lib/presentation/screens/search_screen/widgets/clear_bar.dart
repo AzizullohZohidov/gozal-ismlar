@@ -1,7 +1,9 @@
+import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gozal_ismlar/business_logic/bloc/search_bloc/search_bloc.dart';
 import 'package:gozal_ismlar/core/constants/my_colors.dart';
+import 'package:gozal_ismlar/lang/locale_keys.g.dart';
 
 class ClearBar extends StatelessWidget {
   const ClearBar({Key? key}) : super(key: key);
@@ -16,7 +18,7 @@ class ClearBar extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            'Қидирилганлар',
+            LocaleKeys.searched.tr(),
             style: TextStyle(
               color: MyColors.black,
               fontSize: 20,
@@ -28,7 +30,7 @@ class ClearBar extends StatelessWidget {
               BlocProvider.of<SearchBloc>(context).add(SearchCleared());
             },
             child: Text(
-              'Тозалаш',
+              LocaleKeys.clear.tr(),
               style: TextStyle(
                 color: MyColors.greyText,
                 fontSize: 14,
