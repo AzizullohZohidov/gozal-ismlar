@@ -25,6 +25,7 @@ void main() async {
       path: 'assets/lang',
       fallbackLocale: Locale('uz', 'CR'),
       assetLoader: CodegenLoader(),
+      startLocale: Locale('uz', 'CR'),
       child: MyApp(),
     ),
   );
