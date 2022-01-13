@@ -61,6 +61,7 @@ class _SearchScreenState extends State<SearchScreen> {
                         listItemHeight:
                             MediaQuery.of(context).size.height * 0.11,
                         isReversed: false,
+                        saveInSearched: true,
                       );
                     } else if (state is SearchClearing) {
                       return RecentlySearched(

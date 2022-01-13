@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gozal_ismlar/presentation/screens/name_details_screen/widgets/swiping_button.dart';
 import '../../../business_logic/bloc/name_details_bloc/name_details_bloc.dart';
 import '../../../core/constants/my_colors.dart';
 import '../../../data/models/name_model.dart';
@@ -40,6 +41,7 @@ class _NameDetailsScreenState extends State<NameDetailsScreen> {
             Expanded(
               child: PageView.builder(
                 controller: widget._pageController,
+                physics: NeverScrollableScrollPhysics(),
                 itemCount: widget.filteredNames.length,
                 scrollDirection: Axis.vertical,
                 itemBuilder: (context, index) {
@@ -145,7 +147,16 @@ class _NameDetailsScreenState extends State<NameDetailsScreen> {
             ],
           ),
         ),
-        _buildNextNameButton(),
+        //_buildNextNameButton(),
+        SwipingButton(
+          text: 'Swipe me!',
+          onSwipeCallback: () {
+            print('Swiped');
+            widget._pageController
+                .nextPage(duration: Duration(seconds: 1), curve: Curves.easeIn);
+          },
+          child: _buildNextNameButton(),
+        ),
       ],
     );
   }
@@ -201,51 +212,45 @@ class _NameDetailsScreenState extends State<NameDetailsScreen> {
   }
 
   Widget _buildNextNameButton() {
-    return GestureDetector(
-      onTap: () {
-        widget._pageController
-            .nextPage(duration: Duration(seconds: 1), curve: Curves.easeIn);
-      },
-      child: Stack(
-        alignment: Alignment.center,
-        children: [
-          Transform.rotate(
-            angle: pi,
-            child: Opacity(
-              opacity: 0.1,
-              child: ClipPath(
-                clipper: LargeCircleClipper(),
-                child: Container(
-                  color: MyColors.green,
-                  height: 140,
-                  alignment: Alignment.center,
-                ),
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        Transform.rotate(
+          angle: pi,
+          child: Opacity(
+            opacity: 0.1,
+            child: ClipPath(
+              clipper: LargeCircleClipper(),
+              child: Container(
+                color: MyColors.green,
+                height: 140,
+                alignment: Alignment.center,
               ),
             ),
           ),
-          Transform.rotate(
-            angle: pi,
-            child: Opacity(
-              opacity: 0.1,
-              child: ClipPath(
-                clipper: SmallCircleClipper(),
-                child: Container(
-                  color: MyColors.green,
-                  height: 140,
-                  alignment: Alignment.center,
-                ),
+        ),
+        Transform.rotate(
+          angle: pi,
+          child: Opacity(
+            opacity: 0.1,
+            child: ClipPath(
+              clipper: SmallCircleClipper(0.0),
+              child: Container(
+                color: MyColors.green,
+                height: 140,
+                alignment: Alignment.center,
               ),
             ),
           ),
-          Positioned(
-            bottom: MediaQuery.of(context).size.height * 0.065,
-            child: SizedBox(
-              width: MediaQuery.of(context).size.width * 0.225,
-              child: Image.asset('assets/icons/keyingi_ism.png'),
-            ),
+        ),
+        Positioned(
+          //bottom: MediaQuery.of(context).size.height * 0.065,
+          child: SizedBox(
+            width: MediaQuery.of(context).size.width * 0.225,
+            child: Image.asset('assets/icons/keyingi_ism.png'),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 

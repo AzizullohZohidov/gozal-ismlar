@@ -9,8 +9,6 @@ import 'business_logic/bloc/names_lsit_tile_bloc/name_list_tile_bloc.dart';
 import 'core/constants/my_colors.dart';
 import 'data/repositories/names_repository.dart';
 import 'presentation/screens/landing_screen/landing_screen.dart';
-import 'presentation/screens/name_details_screen/name_details_screen.dart';
-
 import 'business_logic/bloc/character_indicator_bloc/character_indicator_bloc.dart';
 import 'business_logic/bloc/favorites_bloc/favorites_bloc.dart';
 import 'business_logic/bloc/name_details_bloc/name_details_bloc.dart';

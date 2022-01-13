@@ -14,6 +14,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     on<SearchFiltered>(_onSearchFiltered);
     on<SearchCleared>(_onSearchCleared);
     on<SearchBarEmptied>(_onSearchBarEmptied);
+    on<SearchSaveSearched>(_onSearchSaveSearched);
   }
 
   _onSearchInitialized(
@@ -30,9 +31,6 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     Emitter<SearchState> emit,
   ) async {
     emit(const SearchEmpty());
-    if (event.pattern.isNotEmpty) {
-      await RecentlySearchedDatabase.instance.addRecName(event.pattern);
-    }
     List<NameModel> names = namesRepository.getNamesStartingWith(event.pattern);
     emit(SearchFiltering(filteredNames: names));
   }
@@ -41,7 +39,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     SearchBarEmptied event,
     Emitter<SearchState> emit,
   ) async {
-    emit(const SearchEmpty());
+    //emit(const SearchEmpty());
     List<String> recentlySearchedList =
         await RecentlySearchedDatabase.instance.readAllRecNames();
     emit(SearchInitializing(recentlySearchedNames: recentlySearchedList));
@@ -53,5 +51,14 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   ) async {
     await RecentlySearchedDatabase.instance.clearDb();
     emit(SearchClearing());
+  }
+
+  _onSearchSaveSearched(
+    SearchSaveSearched event,
+    Emitter<SearchState> emit,
+  ) async {
+    if (event.name.isNotEmpty) {
+      await RecentlySearchedDatabase.instance.addRecName(event.name);
+    }
   }
 }

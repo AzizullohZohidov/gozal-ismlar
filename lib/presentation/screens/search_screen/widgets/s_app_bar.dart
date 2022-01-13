@@ -55,13 +55,16 @@ class SAppBar extends StatelessWidget {
                       SearchBarEmptied(),
                     );
                     print('After adding SearchBarEmptied() event');
+                  } else if (text.isNotEmpty) {
+                    BlocProvider.of<SearchBloc>(context)
+                        .add(SearchFiltered(pattern: searchBarController.text));
                   }
                 },
-                onEditingComplete: () {
+                /*onEditingComplete: () {
                   BlocProvider.of<SearchBloc>(context).add(
                     SearchFiltered(pattern: searchBarController.text),
                   );
-                },
+                },*/
               ),
             ),
           ),

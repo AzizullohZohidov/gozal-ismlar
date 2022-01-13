@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gozal_ismlar/business_logic/bloc/search_bloc/search_bloc.dart';
+import 'package:gozal_ismlar/presentation/screens/name_details_screen/name_details_screen.dart';
 import '../../../../business_logic/bloc/names_lsit_tile_bloc/name_list_tile_bloc.dart';
 import '../../../../core/constants/my_colors.dart';
 import '../../../../data/models/name_model.dart';
-import '../../name_details_screen/name_details_screen.dart';
 
 class NameListTile extends StatefulWidget {
   NameListTile({
@@ -17,6 +18,7 @@ class NameListTile extends StatefulWidget {
     this.isFavorite = false,
     this.fontSize = 22,
     this.iconSize = 35,
+    this.saveInSearched = false,
   }) : super(key: key);
   final int id;
   final bool isReversed;
@@ -28,6 +30,7 @@ class NameListTile extends StatefulWidget {
   double listTileHeight;
   List<NameModel> filteredNames;
   late NameListTileBloc nameListTileBloc;
+  final bool saveInSearched;
 
   @override
   State<NameListTile> createState() => _NameListTileState();
@@ -59,16 +62,30 @@ class _NameListTileState extends State<NameListTile> {
             state.id == widget.id) {
           widget.isFavorite = false;
         } else if (state is NameListTileEnteringDetails &&
+            state.key == widget.key) {
+          FocusManager.instance.primaryFocus?.unfocus();
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (BuildContext context) => NameDetailsScreen(
+                filteredNames: widget.filteredNames,
+                currentNameId: widget.id,
+              ),
+            ),
+          );
+        }
+        /*
+        else if (state is NameListTileEnteringDetails &&
             state.id == widget.id) {
           Navigator.of(context).push(
             MaterialPageRoute(
               builder: (BuildContext context) => NameDetailsScreen(
                 filteredNames: widget.filteredNames,
-                currentNameId: state.id,
+                currentNameId: widget.id,
               ),
             ),
           );
         }
+        */
       },
       child: SizedBox(
         height: widget.listTileHeight,
@@ -76,10 +93,17 @@ class _NameListTileState extends State<NameListTile> {
           children: [
             ListTile(
               onTap: () {
+                if (widget.saveInSearched) {
+                  BlocProvider.of<SearchBloc>(context)
+                      .add(SearchSaveSearched(name: widget.title));
+                }
                 widget.nameListTileBloc =
                     BlocProvider.of<NameListTileBloc>(context);
                 widget.nameListTileBloc.add(
-                  NameListTileEnteredDetails(id: widget.id),
+                  NameListTileEnteredDetails(
+                    id: widget.id,
+                    key: widget.key!,
+                  ),
                 );
               },
               title: Text(

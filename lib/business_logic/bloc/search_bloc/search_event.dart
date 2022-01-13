@@ -38,3 +38,12 @@ class SearchCleared extends SearchEvent {
   @override
   List<Object> get props => [];
 }
+
+class SearchSaveSearched extends SearchEvent {
+  final String name;
+
+  SearchSaveSearched({required this.name});
+
+  @override
+  List<Object> get props => [name];
+}

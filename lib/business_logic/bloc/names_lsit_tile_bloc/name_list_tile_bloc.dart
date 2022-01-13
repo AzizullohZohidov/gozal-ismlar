@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/foundation.dart';
 import '../../../data/repositories/names_repository.dart';
 
 part 'name_list_tile_event.dart';
@@ -18,7 +19,10 @@ class NameListTileBloc extends Bloc<NameListTileEvent, NameListTileState> {
     NameListTileEnteredDetails event,
     Emitter<NameListTileState> emitter,
   ) {
-    emitter(NameListTileEnteringDetails(id: event.id));
+    emitter(NameListTileEnteringDetails(
+      id: event.id,
+      key: event.key,
+    ));
     emitter(NameListTileEmptyState());
   }
 

@@ -11,8 +11,12 @@ class NameListTileInitial extends NameListTileState {}
 
 class NameListTileEnteringDetails extends NameListTileState {
   final int id;
+  final Key key;
 
-  const NameListTileEnteringDetails({required this.id});
+  const NameListTileEnteringDetails({
+    required this.id,
+    required this.key,
+  });
 
   @override
   List<Object> get props => [id];

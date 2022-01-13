@@ -11,13 +11,14 @@ class NamesList extends StatelessWidget {
   String firstLetter = 'А';
   final bool isReversed;
   late CharacterIndicatorBloc characterIndicatorBloc;
+  final bool saveInSearched;
   NamesList({
     Key? key,
     required this.names,
     required this.isReversed,
     required this.listItemHeight,
-  })  :
-        super(key: key) {
+    this.saveInSearched = false,
+  }) : super(key: key) {
     _listController.addListener(observeFirstCharacters);
   }
   List<NameModel> names;
@@ -29,7 +30,8 @@ class NamesList extends StatelessWidget {
         itemCount: names.length,
         itemBuilder: (BuildContext context, int index) {
           return NameListTile(
-            key: Key(names[index].id.toString()),
+            //key: Key(names[index].id.toString()),
+            key: UniqueKey(),
             id: names[index].id,
             isReversed: isReversed,
             title: names[index].nameCyr,
@@ -37,6 +39,7 @@ class NamesList extends StatelessWidget {
             filteredNames: names,
             isFavorite: names[index].isFavorite,
             listTileHeight: MediaQuery.of(context).size.height * 0.11,
+            saveInSearched: saveInSearched,
           );
         });
   }

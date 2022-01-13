@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gozal_ismlar/business_logic/bloc/search_bloc/search_bloc.dart';
 import 'package:gozal_ismlar/core/constants/my_colors.dart';
 import 'package:gozal_ismlar/data/models/name_model.dart';
 
@@ -29,6 +31,8 @@ class RecentlySearchedTile extends StatelessWidget {
                 offset: title.length,
               ),
             );
+            BlocProvider.of<SearchBloc>(context)
+                .add(SearchFiltered(pattern: searchBarController.text));
           },
           title: Text(
             title,

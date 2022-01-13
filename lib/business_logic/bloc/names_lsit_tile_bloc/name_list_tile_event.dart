@@ -9,11 +9,15 @@ abstract class NameListTileEvent extends Equatable {
 
 class NameListTileEnteredDetails extends NameListTileEvent {
   final int id;
+  final Key key;
 
-  const NameListTileEnteredDetails({required this.id});
+  const NameListTileEnteredDetails({
+    required this.id,
+    required this.key,
+  });
 
   @override
-  List<Object> get props => [id];
+  List<Object> get props => [id, key];
 }
 
 class NameListTileMarkedFavorite extends NameListTileEvent {
